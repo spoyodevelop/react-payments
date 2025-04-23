@@ -12080,17 +12080,17 @@ function requireClient() {
 }
 var clientExports = requireClient();
 const ReactDOM = /* @__PURE__ */ getDefaultExportFromCjs(clientExports);
-const container$3 = "_container_wor1f_1";
-const styles$9 = {
-  container: container$3
+const container$5 = "_container_ia9aa_1";
+const styles$d = {
+  container: container$5
 };
-const form = "_form_4axrq_1";
-const styles$8 = {
+const form = "_form_17xo6_1";
+const styles$c = {
   form
 };
 const title = "_title_47ios_1";
 const guideText = "_guideText_47ios_9";
-const styles$7 = {
+const styles$b = {
   title,
   guideText
 };
@@ -12099,25 +12099,25 @@ function CardInputBox({
   guideText: guideText2,
   InputComponents
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.container, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: styles$7.title, children: title2 }),
-    guideText2 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$7.guideText, children: guideText2 }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$b.container, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: styles$b.title, children: title2 }),
+    guideText2 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$b.guideText, children: guideText2 }),
     InputComponents
   ] });
 }
-const container$2 = "_container_1cm80_1";
+const container$4 = "_container_1cm80_1";
 const cardInputs = "_cardInputs_1cm80_9";
 const cardInputBox = "_cardInputBox_1cm80_14";
-const errorMessage$2 = "_errorMessage_1cm80_21";
-const styles$6 = {
-  container: container$2,
+const errorMessage$3 = "_errorMessage_1cm80_21";
+const styles$a = {
+  container: container$4,
   cardInputs,
   cardInputBox,
-  errorMessage: errorMessage$2
+  errorMessage: errorMessage$3
 };
 const label = "_label_1vjtc_1";
 const hidden = "_hidden_1vjtc_8";
-const styles$5 = {
+const styles$9 = {
   label,
   hidden
 };
@@ -12126,14 +12126,14 @@ function Label({ isHidden, children, ...props }) {
     "label",
     {
       ...props,
-      className: `${styles$5.label} ${isHidden ? styles$5.hidden : ""}`,
+      className: `${styles$9.label} ${isHidden ? styles$9.hidden : ""}`,
       children
     }
   );
 }
 const input = "_input_v81jq_1";
 const error = "_error_v81jq_13";
-const styles$4 = {
+const styles$8 = {
   input,
   error
 };
@@ -12142,35 +12142,41 @@ function Input({ isError, ...props }) {
     "input",
     {
       ...props,
-      className: `${styles$4.input} ${isError ? styles$4.error : ""}`
+      className: `${styles$8.input} ${isError ? styles$8.error : ""}`
     }
   );
 }
-const isAnyTrue = (...values) => {
-  return values.some((value) => value);
-};
+const CARD_NUMBER_INPUT_KEYS = [
+  "first",
+  "second",
+  "third",
+  "fourth"
+];
 const INITIAL_CARD_NUMBER_STATE = {
-  first: { value: "", isError: false },
-  second: { value: "", isError: false },
-  third: { value: "", isError: false },
-  fourth: { value: "", isError: false }
+  first: { value: "", errorMessage: "" },
+  second: { value: "", errorMessage: "" },
+  third: { value: "", errorMessage: "" },
+  fourth: { value: "", errorMessage: "" }
 };
-const CARD_NUMBER_INPUT_KEYS = Object.keys(
-  INITIAL_CARD_NUMBER_STATE
-);
+const EXPIRE_DATE_ERROR_MESSAGE$2 = {
+  INVALID_NUMBER: "숫자만 입력 가능합니다.",
+  INVALID_CARD_LENGTH: "4자리의 숫자만 입력 가능합니다."
+};
+const CARD_NUMBER_LENGTH = 4;
 function CardNumberInputs({
   cardNumberState,
   handleCardNumberChange
 }) {
   const { first, second, third, fourth } = cardNumberState;
-  const isCardNumberValid = isAnyTrue(
-    first.isError,
-    second.isError,
-    third.isError,
-    fourth.isError
-  );
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.container, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$6.cardInputs, children: CARD_NUMBER_INPUT_KEYS.map((inputKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$6.cardInputBox, children: [
+  const errorMessages = [
+    first.errorMessage,
+    second.errorMessage,
+    third.errorMessage,
+    fourth.errorMessage
+  ].filter((msg) => !!msg);
+  const latestErrorMessage = errorMessages.length ? errorMessages[errorMessages.length - 1] : "";
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$a.container, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$a.cardInputs, children: CARD_NUMBER_INPUT_KEYS.map((inputKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$a.cardInputBox, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Label,
         {
@@ -12184,28 +12190,36 @@ function CardNumberInputs({
         {
           id: `card-number-${inputKey}-input`,
           type: "text",
-          maxLength: 4,
+          maxLength: CARD_NUMBER_LENGTH,
           placeholder: "1234",
-          isError: cardNumberState[inputKey].isError,
+          isError: Boolean(cardNumberState[inputKey].errorMessage),
           value: cardNumberState[inputKey].value,
           onChange: (e) => handleCardNumberChange(inputKey, e.target.value)
         }
       )
     ] }, inputKey)) }),
-    isCardNumberValid && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$6.errorMessage, children: "4자리의 숫자만 입력 가능합니다." })
+    latestErrorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "span",
+      {
+        id: "card-number-error-message",
+        role: "alert",
+        className: styles$a.errorMessage,
+        children: latestErrorMessage
+      }
+    )
   ] });
 }
-const container$1 = "_container_1xa0n_1";
+const container$3 = "_container_1xa0n_1";
 const expireDateInputContainer = "_expireDateInputContainer_1xa0n_9";
 const expireDateInputBox = "_expireDateInputBox_1xa0n_14";
-const errorMessage$1 = "_errorMessage_1xa0n_23";
-const styles$3 = {
-  container: container$1,
+const errorMessage$2 = "_errorMessage_1xa0n_23";
+const styles$7 = {
+  container: container$3,
   expireDateInputContainer,
   expireDateInputBox,
-  errorMessage: errorMessage$1
+  errorMessage: errorMessage$2
 };
-const EXPIRE_DATE_ERROR_MESSAGE = {
+const EXPIRE_DATE_ERROR_MESSAGE$1 = {
   INVALID_NUMBER: "숫자만 입력 가능합니다.",
   INVALID_YEAR_LENGTH: "년도는 2자리만 입력 가능합니다.",
   INVALID_MONTH_LENGTH: "월은 최소 1자 ~ 최대 2자까지만 입력 가능합니다.",
@@ -12215,9 +12229,8 @@ const INITIAL_EXPIRE_DATE_STATE = {
   MM: { value: "", errorMessage: "" },
   YY: { value: "", errorMessage: "" }
 };
-const EXPIRE_DATE_KEYS = Object.keys(
-  INITIAL_EXPIRE_DATE_STATE
-);
+const EXPIRE_DATE_KEYS = ["MM", "YY"];
+const EXPIRE_DATE_LENGTH = 2;
 function CardExpireDateInputs({
   expireDate,
   handleExpireMonthChange,
@@ -12228,14 +12241,14 @@ function CardExpireDateInputs({
     MM: handleExpireMonthChange,
     YY: handleExpireYearChange
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$3.expireDateInputBox, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$7.expireDateInputBox, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: `expire-${expireKey}-input`, isHidden: idx !== 0, children: "유효 기간" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Input,
       {
         id: `expire-${expireKey}-input`,
         type: "text",
-        maxLength: 2,
+        maxLength: EXPIRE_DATE_LENGTH,
         placeholder: expireKey,
         isError: Boolean(expireDate[expireKey].errorMessage),
         value: expireDate[expireKey].value,
@@ -12247,92 +12260,105 @@ function CardExpireDateInputs({
       "span",
       {
         id: `${expireKey}-error-message`,
-        className: styles$3.errorMessage,
+        className: styles$7.errorMessage,
         children: expireDate[expireKey].errorMessage
       }
     )
   ] }, expireKey)) }) });
 }
-const container = "_container_1sop9_1";
+const container$2 = "_container_1sop9_1";
 const cvcInputs = "_cvcInputs_1sop9_9";
-const errorMessage = "_errorMessage_1sop9_14";
-const styles$2 = {
-  container,
+const errorMessage$1 = "_errorMessage_1sop9_14";
+const styles$6 = {
+  container: container$2,
   cvcInputs,
-  errorMessage
+  errorMessage: errorMessage$1
+};
+const CVC_INPUT_LENGTH = 3;
+const EXPIRE_DATE_ERROR_MESSAGE = {
+  INVALID_NUMBER: "숫자만 입력 가능합니다.",
+  INVALID_CVC_LENGTH: "CVC는 3자리의 숫자만 입력 가능합니다."
 };
 function CVCInputs({ CVCState, handleCVCChange }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.container, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.container, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "cvc-input", children: "CVC" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$2.cvcInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$6.cvcInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Input,
       {
         id: "cvc-input",
         type: "text",
-        maxLength: 3,
+        maxLength: CVC_INPUT_LENGTH,
         placeholder: "123",
-        isError: CVCState.isError,
+        isError: Boolean(CVCState.errorMessage),
         value: CVCState.value,
         onChange: (e) => handleCVCChange(e.target.value)
       }
     ) }),
-    CVCState.isError && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$2.errorMessage, children: "3자리의 숫자만 입력 가능합니다." })
+    CVCState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$6.errorMessage, children: CVCState.errorMessage })
   ] });
 }
-function AddCardForm({
-  addCardState: {
-    cardNumberState,
-    handleCardNumberChange,
-    expireDate,
-    handleExpireMonthChange,
-    handleExpireYearChange,
-    handleExpireMonthBlur,
-    CVCState,
-    handleCVCChange
-  }
-}) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { className: styles$8.form, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CardInputBox,
-      {
-        title: "결제할 카드 번호를 입력해 주세요",
-        guideText: "본인 명의의 카드만 결제 가능합니다.",
-        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CardNumberInputs,
-          {
-            cardNumberState,
-            handleCardNumberChange
-          }
-        )
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CardInputBox,
-      {
-        title: "카드 유효기간을 입력해 주세요",
-        guideText: "월/년도(MMYY)를 순서대로 입력해 주세요.",
-        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CardExpireDateInputs,
-          {
-            expireDate,
-            handleExpireMonthChange,
-            handleExpireYearChange,
-            handleExpireMonthBlur
-          }
-        )
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CardInputBox,
-      {
-        title: "CVC 번호를 입력해 주세요",
-        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(CVCInputs, { CVCState, handleCVCChange })
-      }
-    )
+const container$1 = "_container_1p4bv_1";
+const styles$5 = {
+  container: container$1
+};
+const dropdown = "_dropdown_7g73s_1";
+const styles$4 = {
+  dropdown
+};
+function Dropdown({ itemList, placeholder, ...props }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("select", { ...props, className: styles$4.dropdown, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", disabled: true, children: placeholder }),
+    itemList.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: item, children: item }, item))
   ] });
+}
+const CARD_BRAND_COLOR = {
+  BC카드: "#F04651",
+  신한카드: "#0046FF",
+  카카오뱅크: "#FFE600",
+  현대카드: "#000000",
+  우리카드: "#007BC8",
+  롯데카드: "#ED1C24",
+  하나카드: "#009490",
+  국민카드: "#6A6056"
+};
+const CARD_BRAND = [
+  "BC카드",
+  "신한카드",
+  "카카오뱅크",
+  "현대카드",
+  "우리카드",
+  "롯데카드",
+  "하나카드",
+  "국민카드"
+];
+function CardBrandDropdown({
+  selectedBrand,
+  setSelectedBrand
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$5.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    Dropdown,
+    {
+      id: "selected-card-brand",
+      className: styles$5.dropdown,
+      itemList: CARD_BRAND,
+      placeholder: "카드 브랜드를 선택하세요",
+      onChange: (e) => setSelectedBrand(e.target.value),
+      value: selectedBrand ?? ""
+    }
+  ) });
 }
 const isNaN$1 = (value) => {
   return typeof value === "number" && Number.isNaN(value);
+};
+const validateCardNumber = (cardNumber2) => {
+  if (Number.isNaN(Number(cardNumber2))) {
+    return EXPIRE_DATE_ERROR_MESSAGE$2.INVALID_NUMBER;
+  }
+  const isInvalidLength = cardNumber2.length === 0 || cardNumber2.length === CARD_NUMBER_LENGTH;
+  if (!isInvalidLength) {
+    return EXPIRE_DATE_ERROR_MESSAGE$2.INVALID_CARD_LENGTH;
+  }
+  return "";
 };
 const useControlledCardNumber = () => {
   const [cardNumberState, setCardNumberState] = reactExports.useState(
@@ -12340,16 +12366,25 @@ const useControlledCardNumber = () => {
   );
   const handleCardNumberChange = reactExports.useCallback(
     (key, value) => {
-      if (value.length > 4) {
+      if (value.length > CARD_NUMBER_LENGTH) {
         return;
       }
-      const isValidLength = value.length === 0 || value.length === 4;
-      const isValid = isNaN$1(Number(value)) || !isValidLength;
-      setCardNumberState((prevState) => ({
-        ...prevState,
+      const numeric = Number(value);
+      if (isNaN$1(numeric)) {
+        setCardNumberState((prev) => ({
+          ...prev,
+          [key]: {
+            ...prev[key],
+            errorMessage: validateCardNumber(value)
+          }
+        }));
+        return;
+      }
+      setCardNumberState((prev) => ({
+        ...prev,
         [key]: {
           value,
-          isError: isValid
+          errorMessage: validateCardNumber(value)
         }
       }));
     },
@@ -12357,50 +12392,31 @@ const useControlledCardNumber = () => {
   );
   return { cardNumberState, handleCardNumberChange };
 };
-const useControlledCVC = () => {
-  const [CVCState, setCVCState] = reactExports.useState({
-    value: "",
-    isError: false
-  });
-  const handleCVCChange = reactExports.useCallback((value) => {
-    if (value.length > 3) {
-      return;
-    }
-    const isValidLength = value.length === 0 || value.length === 3;
-    const isValid = isNaN(Number(value)) || !isValidLength;
-    setCVCState((prevState) => ({
-      ...prevState,
-      value,
-      isError: isValid
-    }));
-  }, []);
-  return { CVCState, handleCVCChange };
-};
 const isValidMonth = (month) => {
   return month >= 1 && month <= 12;
 };
 const validateMonth = (month) => {
-  if (isNaN(Number(month))) {
-    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_NUMBER;
+  if (Number.isNaN(Number(month))) {
+    return EXPIRE_DATE_ERROR_MESSAGE$1.INVALID_NUMBER;
   }
   if (!isValidMonth(Number(month))) {
-    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_MONTH_RANGE;
+    return EXPIRE_DATE_ERROR_MESSAGE$1.INVALID_MONTH_RANGE;
   }
-  const isInvalidLength = month.length === 0 || month.length === 2;
+  const isInvalidLength = month.length === 0 || month.length === EXPIRE_DATE_LENGTH;
   if (!isInvalidLength) {
-    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_MONTH_LENGTH;
+    return EXPIRE_DATE_ERROR_MESSAGE$1.INVALID_MONTH_LENGTH;
   }
   return "";
 };
 const isValidYear = (year) => {
-  return year.length === 2;
+  return year.length === EXPIRE_DATE_LENGTH;
 };
 const validateYear = (year) => {
-  if (isNaN(Number(year))) {
-    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_NUMBER;
+  if (Number.isNaN(Number(year))) {
+    return EXPIRE_DATE_ERROR_MESSAGE$1.INVALID_NUMBER;
   }
   if (!isValidYear(year)) {
-    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_YEAR_LENGTH;
+    return EXPIRE_DATE_ERROR_MESSAGE$1.INVALID_YEAR_LENGTH;
   }
   return "";
 };
@@ -12409,7 +12425,18 @@ const useControlledExpireDate = () => {
     INITIAL_EXPIRE_DATE_STATE
   );
   const handleExpireMonthChange = reactExports.useCallback((value) => {
-    if (value.length > 2) {
+    if (value.length > EXPIRE_DATE_LENGTH) {
+      return;
+    }
+    const numeric = Number(value);
+    if (Number.isNaN(numeric)) {
+      setExpireDate((prevState) => ({
+        ...prevState,
+        MM: {
+          ...prevState["MM"],
+          errorMessage: validateMonth(value)
+        }
+      }));
       return;
     }
     setExpireDate((prevState) => ({
@@ -12420,7 +12447,7 @@ const useControlledExpireDate = () => {
       }
     }));
   }, []);
-  const handleExpireMonthBlur = reactExports.useCallback((value) => {
+  const handleExpireMonthBlur = (value) => {
     if (value.length !== 1) {
       return;
     }
@@ -12433,9 +12460,20 @@ const useControlledExpireDate = () => {
         }
       }));
     }
-  }, []);
+  };
   const handleExpireYearChange = reactExports.useCallback((value) => {
     if (value.length > 2) {
+      return;
+    }
+    const numeric = Number(value);
+    if (Number.isNaN(numeric)) {
+      setExpireDate((prevState) => ({
+        ...prevState,
+        YY: {
+          ...prevState["YY"],
+          errorMessage: validateYear(value)
+        }
+      }));
       return;
     }
     setExpireDate((prevState) => ({
@@ -12453,16 +12491,180 @@ const useControlledExpireDate = () => {
     handleExpireMonthBlur
   };
 };
-const useAddCard = () => {
-  const { cardNumberState, handleCardNumberChange } = useControlledCardNumber();
-  const {
-    expireDate,
-    handleExpireMonthChange,
-    handleExpireYearChange,
-    handleExpireMonthBlur
-  } = useControlledExpireDate();
-  const { CVCState, handleCVCChange } = useControlledCVC();
-  const addCardState = {
+const validateCVCNumber = (CVCNumber) => {
+  if (Number.isNaN(Number(CVCNumber))) {
+    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_NUMBER;
+  }
+  const isInvalidLength = CVCNumber.length === 0 || CVCNumber.length === 3;
+  if (!isInvalidLength) {
+    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_CVC_LENGTH;
+  }
+  return "";
+};
+const useControlledCVC = () => {
+  const [CVCState, setCVCState] = reactExports.useState({
+    value: "",
+    errorMessage: ""
+  });
+  const handleCVCChange = reactExports.useCallback((value) => {
+    if (value.length > CVC_INPUT_LENGTH) {
+      return;
+    }
+    const numeric = Number(value);
+    if (Number.isNaN(numeric)) {
+      setCVCState((prevState) => ({
+        ...prevState,
+        errorMessage: validateCVCNumber(value)
+      }));
+      return;
+    }
+    setCVCState(() => ({
+      value,
+      errorMessage: validateCVCNumber(value)
+    }));
+  }, []);
+  return { CVCState, handleCVCChange };
+};
+const useControlledSelectedCardBrand = () => {
+  const [selectedBrand, setSelectedBrand] = reactExports.useState(null);
+  return { selectedBrand, setSelectedBrand };
+};
+const PASSWORD_INPUT_LENGTH = 2;
+const PASSWORD_ERROR_MESSAGE = {
+  INVALID_NUMBER: "숫자만 입력 가능합니다.",
+  INVALID_PASSWORD_LENGTH: "비밀번호는 앞 2자리의 숫자만 입력 가능합니다."
+};
+const validatePassword = (passwordNumber) => {
+  if (Number.isNaN(Number(passwordNumber))) {
+    return PASSWORD_ERROR_MESSAGE.INVALID_NUMBER;
+  }
+  const isInvalidLength = passwordNumber.length === 0 || passwordNumber.length === PASSWORD_INPUT_LENGTH;
+  if (!isInvalidLength) {
+    return PASSWORD_ERROR_MESSAGE.INVALID_PASSWORD_LENGTH;
+  }
+  return "";
+};
+const useControlledPassword = () => {
+  const [passwordState, setPasswordState] = reactExports.useState({
+    value: "",
+    errorMessage: ""
+  });
+  const handlePasswordChange = reactExports.useCallback((value) => {
+    if (value.length > PASSWORD_INPUT_LENGTH) {
+      return;
+    }
+    const numeric = Number(value);
+    if (Number.isNaN(numeric)) {
+      setPasswordState((prevState) => ({
+        ...prevState,
+        errorMessage: validatePassword(value)
+      }));
+      return;
+    }
+    setPasswordState(() => ({
+      value,
+      errorMessage: validatePassword(value)
+    }));
+  }, []);
+  return { passwordState, handlePasswordChange };
+};
+const STEP_ORDER = [
+  "CARD_NUMBER",
+  "CARD_BRAND",
+  "EXPIRE_DATE",
+  "CVC",
+  "PASSWORD",
+  "COMPLETE"
+];
+const validators = [
+  ({ card }) => Object.values(card.cardNumberState).every(
+    ({ value, errorMessage: errorMessage2 }) => !errorMessage2 && value.length === 4
+  ),
+  ({ brand }) => {
+    return brand.selectedBrand != null;
+  },
+  ({ expire: expire2 }) => Object.values(expire2.expireDate).every(
+    ({ value, errorMessage: errorMessage2 }) => !errorMessage2 && value.length === 2
+  ),
+  ({ cvc }) => !cvc.CVCState.errorMessage && cvc.CVCState.value.length === 3,
+  ({ password }) => !password.passwordState.errorMessage && password.passwordState.value.length === 2
+];
+const useCardRegistrationFlow = () => {
+  const card = useControlledCardNumber();
+  const brand = useControlledSelectedCardBrand();
+  const expire2 = useControlledExpireDate();
+  const cvc = useControlledCVC();
+  const password = useControlledPassword();
+  const maxReachedStep = reactExports.useRef(0);
+  const slices = { card, brand, expire: expire2, cvc, password };
+  const { currentStep, allValid } = reactExports.useMemo(() => {
+    let validAll = true;
+    let currentValidStep = 0;
+    for (let i = 0; i < validators.length; i++) {
+      if (validators[i](slices)) {
+        currentValidStep = i + 1;
+      } else {
+        validAll = i >= validators.length - 1;
+        break;
+      }
+    }
+    if (currentValidStep > maxReachedStep.current) {
+      maxReachedStep.current = currentValidStep;
+    }
+    const stepIndex = Math.min(maxReachedStep.current, STEP_ORDER.length - 1);
+    return {
+      currentStep: STEP_ORDER[stepIndex],
+      allValid: validAll && currentValidStep >= validators.length
+    };
+  }, [
+    card.cardNumberState,
+    brand.selectedBrand,
+    expire2.expireDate,
+    cvc.CVCState,
+    password.passwordState
+  ]);
+  return {
+    state: { ...card, ...brand, ...expire2, ...cvc, ...password },
+    previewState: {
+      cardNumberState: card.cardNumberState,
+      selectedBrand: brand.selectedBrand,
+      expireDate: expire2.expireDate
+    },
+    currentStep,
+    allValid
+  };
+};
+const container = "_container_s5ckw_1";
+const passwordInputs = "_passwordInputs_s5ckw_9";
+const errorMessage = "_errorMessage_s5ckw_14";
+const styles$3 = {
+  container,
+  passwordInputs,
+  errorMessage
+};
+function PasswordInputs({
+  passwordState,
+  handlePasswordChange
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$3.container, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "cvc-input", children: "비밀번호 앞 2자리" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$3.passwordInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Input,
+      {
+        id: "password-input",
+        type: "text",
+        maxLength: PASSWORD_INPUT_LENGTH,
+        placeholder: "**",
+        isError: Boolean(passwordState.errorMessage),
+        value: passwordState.value,
+        onChange: (e) => handlePasswordChange(e.target.value)
+      }
+    ) }),
+    passwordState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$3.errorMessage, children: passwordState.errorMessage })
+  ] });
+}
+function AddCardForm({
+  addCardState: {
     cardNumberState,
     handleCardNumberChange,
     expireDate,
@@ -12470,18 +12672,89 @@ const useAddCard = () => {
     handleExpireYearChange,
     handleExpireMonthBlur,
     CVCState,
-    handleCVCChange
-  };
-  const previewState = { cardNumberState, expireDate };
-  return { addCardState, previewState };
-};
-const previewCard = "_previewCard_8qvoe_1";
-const previewHeader = "_previewHeader_8qvoe_14";
-const chip = "_chip_8qvoe_20";
-const cardNumber = "_cardNumber_8qvoe_27";
-const dots = "_dots_8qvoe_43";
-const expire = "_expire_8qvoe_48";
-const styles$1 = {
+    handleCVCChange,
+    selectedBrand,
+    setSelectedBrand,
+    passwordState,
+    handlePasswordChange
+  },
+  currentStep
+}) {
+  const currentIndex = STEP_ORDER.indexOf(currentStep);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { className: styles$c.form, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CardInputBox,
+      {
+        title: "결제할 카드 번호를 입력해 주세요",
+        guideText: "본인 명의의 카드만 결제 가능합니다.",
+        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CardNumberInputs,
+          {
+            cardNumberState,
+            handleCardNumberChange
+          }
+        )
+      }
+    ),
+    currentIndex >= 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CardInputBox,
+      {
+        title: "카드사를 선택해 주세요",
+        guideText: "현재 국내 카드사만 지원합니다.",
+        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CardBrandDropdown,
+          {
+            selectedBrand,
+            setSelectedBrand
+          }
+        )
+      }
+    ),
+    currentIndex >= 2 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CardInputBox,
+      {
+        title: "카드 유효기간을 입력해 주세요",
+        guideText: "월/년도(MMYY)를 순서대로 입력해 주세요.",
+        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CardExpireDateInputs,
+          {
+            expireDate,
+            handleExpireMonthChange,
+            handleExpireYearChange,
+            handleExpireMonthBlur
+          }
+        )
+      }
+    ),
+    currentIndex >= 3 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CardInputBox,
+      {
+        title: "CVC 번호를 입력해 주세요",
+        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(CVCInputs, { CVCState, handleCVCChange })
+      }
+    ),
+    currentIndex >= 4 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CardInputBox,
+      {
+        title: "비밀번호를 입력해주세요",
+        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          PasswordInputs,
+          {
+            passwordState,
+            handlePasswordChange
+          }
+        )
+      }
+    )
+  ] });
+}
+const previewCard = "_previewCard_12vsl_1";
+const previewHeader = "_previewHeader_12vsl_16";
+const chip = "_chip_12vsl_22";
+const cardNumber = "_cardNumber_12vsl_29";
+const dots = "_dots_12vsl_49";
+const expire = "_expire_12vsl_57";
+const styles$2 = {
   previewCard,
   previewHeader,
   chip,
@@ -12489,67 +12762,131 @@ const styles$1 = {
   dots,
   expire
 };
-const VisaCardImage = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='72'%20height='48'%20viewBox='0%200%2083%2057'%20fill='none'%3e%3crect%20x='0.592863'%20y='0.592863'%20width='81.815'%20height='55.7291'%20rx='6.52149'%20fill='white'%20stroke='%23D9D9D9'%20stroke-width='1.18573'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M25.1974%2038.5556H20.1691L16.3986%2024.1707C16.2196%2023.509%2015.8396%2022.924%2015.2806%2022.6483C13.8857%2021.9554%2012.3485%2021.404%2010.6716%2021.1259V20.5721H18.7717C19.8897%2020.5721%2020.7281%2021.404%2020.8678%2022.3702L22.8242%2032.7465L27.85%2020.5721H32.7385L25.1974%2038.5556ZM35.5334%2038.5556H30.7847L34.695%2020.5721H39.4437L35.5334%2038.5556ZM45.5872%2025.5541C45.727%2024.5855%2046.5654%2024.0317%2047.5436%2024.0317C49.0808%2023.8926%2050.7552%2024.1707%2052.1526%2024.8612L52.9911%2020.9893C51.5937%2020.4354%2050.0565%2020.1573%2048.6615%2020.1573C44.0525%2020.1573%2040.6987%2022.6483%2040.6987%2026.1055C40.6987%2028.7355%2043.0743%2030.1165%2044.7512%2030.9484C46.5654%2031.778%2047.2641%2032.3318%2047.1244%2033.1613C47.1244%2034.4056%2045.727%2034.9594%2044.332%2034.9594C42.6551%2034.9594%2040.9782%2034.5447%2039.4435%2033.8518L38.6051%2037.7261C40.282%2038.4166%2042.0962%2038.6947%2043.7731%2038.6947C48.941%2038.8314%2052.1526%2036.3428%2052.1526%2032.6075C52.1526%2027.9036%2045.5872%2027.6279%2045.5872%2025.5541ZM68.7723%2038.5556L65.0017%2020.5721H60.9516C60.1132%2020.5721%2059.2747%2021.1259%2058.9953%2021.9554L52.0131%2038.5556H56.9016L57.8773%2035.928H63.8838L64.4427%2038.5556H68.7723ZM61.6503%2025.415L63.0453%2032.1927H59.135L61.6503%2025.415Z'%20fill='%23172B85'/%3e%3c/svg%3e";
-const MasterCardImage = "data:image/svg+xml,%3csvg%20width='78'%20height='64'%20viewBox='0%200%2037%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M33.9362%201H4.06383C2.37172%201%201%202.27093%201%203.83871V20.1613C1%2021.7291%202.37172%2023%204.06383%2023H33.9362C35.6283%2023%2037%2021.7291%2037%2020.1613V3.83871C37%202.27093%2035.6283%201%2033.9362%201Z'%20fill='white'%20stroke='black'%20stroke-opacity='0.1'%20stroke-width='0.5'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M18.8773%2016.7208C17.7252%2017.7122%2016.2307%2018.3107%2014.5977%2018.3107C10.9539%2018.3107%208%2015.331%208%2011.6553C8%207.9797%2010.9539%205%2014.5977%205C16.2307%205%2017.7252%205.59848%2018.8773%206.58987C20.0293%205.59848%2021.5238%205%2023.1568%205C26.8006%205%2029.7545%207.9797%2029.7545%2011.6553C29.7545%2015.331%2026.8006%2018.3107%2023.1568%2018.3107C21.5238%2018.3107%2020.0293%2017.7122%2018.8773%2016.7208Z'%20fill='%23ED0006'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M18.8772%2016.7208C20.2958%2015.5001%2021.1953%2013.6837%2021.1953%2011.6553C21.1953%209.627%2020.2958%207.81059%2018.8772%206.58988C20.0293%205.59848%2021.5238%205%2023.1568%205C26.8006%205%2029.7545%207.9797%2029.7545%2011.6553C29.7545%2015.331%2026.8006%2018.3107%2023.1568%2018.3107C21.5238%2018.3107%2020.0293%2017.7122%2018.8772%2016.7208Z'%20fill='%23F9A000'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M18.8773%2016.7208C20.2959%2015.5001%2021.1954%2013.6837%2021.1954%2011.6554C21.1954%209.62702%2020.2959%207.81061%2018.8773%206.5899C17.4587%207.81061%2016.5592%209.62702%2016.5592%2011.6554C16.5592%2013.6837%2017.4587%2015.5001%2018.8773%2016.7208Z'%20fill='%23FF5E00'/%3e%3c/svg%3e";
 const dot = "_dot_xnpfw_1";
-const styles = {
+const styles$1 = {
   dot
 };
-function Dot() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles.dot });
+function Dot({ style }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$1.dot, style });
 }
-const getCardBrand = (cardNumber2) => {
-  if (cardNumber2.toString().startsWith("4")) {
+const getOverseaCardBrand = (cardNumber2) => {
+  if (cardNumber2[0] === "4") {
     return "VISA";
   }
-  if (cardNumber2 >= 51 && cardNumber2 <= 55) {
+  const prefix = parseInt(cardNumber2.slice(0, 2), 10);
+  if (prefix >= 51 && prefix <= 55) {
     return "MASTERCARD";
   }
   return "DEFAULT";
 };
+function getTextColorForBackground(hexColor) {
+  const hex = hexColor.replace("#", "");
+  const r = parseInt(hex.length === 3 ? hex[0] + hex[0] : hex.slice(0, 2), 16);
+  const g = parseInt(hex.length === 3 ? hex[1] + hex[1] : hex.slice(2, 4), 16);
+  const b = parseInt(hex.length === 3 ? hex[2] + hex[2] : hex.slice(4, 6), 16);
+  const [R, G, B] = [r, g, b].map((c) => {
+    const channel = c / 255;
+    return channel <= 0.03928 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4);
+  });
+  const luminance = 0.2126 * R + 0.7152 * G + 0.0722 * B;
+  return luminance > 0.179 ? "#000000" : "#FFFFFF";
+}
+const VisaCardImage = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='72'%20height='48'%20viewBox='0%200%2083%2057'%20fill='none'%3e%3crect%20x='0.592863'%20y='0.592863'%20width='81.815'%20height='55.7291'%20rx='6.52149'%20fill='white'%20stroke='%23D9D9D9'%20stroke-width='1.18573'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M25.1974%2038.5556H20.1691L16.3986%2024.1707C16.2196%2023.509%2015.8396%2022.924%2015.2806%2022.6483C13.8857%2021.9554%2012.3485%2021.404%2010.6716%2021.1259V20.5721H18.7717C19.8897%2020.5721%2020.7281%2021.404%2020.8678%2022.3702L22.8242%2032.7465L27.85%2020.5721H32.7385L25.1974%2038.5556ZM35.5334%2038.5556H30.7847L34.695%2020.5721H39.4437L35.5334%2038.5556ZM45.5872%2025.5541C45.727%2024.5855%2046.5654%2024.0317%2047.5436%2024.0317C49.0808%2023.8926%2050.7552%2024.1707%2052.1526%2024.8612L52.9911%2020.9893C51.5937%2020.4354%2050.0565%2020.1573%2048.6615%2020.1573C44.0525%2020.1573%2040.6987%2022.6483%2040.6987%2026.1055C40.6987%2028.7355%2043.0743%2030.1165%2044.7512%2030.9484C46.5654%2031.778%2047.2641%2032.3318%2047.1244%2033.1613C47.1244%2034.4056%2045.727%2034.9594%2044.332%2034.9594C42.6551%2034.9594%2040.9782%2034.5447%2039.4435%2033.8518L38.6051%2037.7261C40.282%2038.4166%2042.0962%2038.6947%2043.7731%2038.6947C48.941%2038.8314%2052.1526%2036.3428%2052.1526%2032.6075C52.1526%2027.9036%2045.5872%2027.6279%2045.5872%2025.5541ZM68.7723%2038.5556L65.0017%2020.5721H60.9516C60.1132%2020.5721%2059.2747%2021.1259%2058.9953%2021.9554L52.0131%2038.5556H56.9016L57.8773%2035.928H63.8838L64.4427%2038.5556H68.7723ZM61.6503%2025.415L63.0453%2032.1927H59.135L61.6503%2025.415Z'%20fill='%23172B85'/%3e%3c/svg%3e";
+const MasterCardImage = "data:image/svg+xml,%3csvg%20width='78'%20height='64'%20viewBox='0%200%2037%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M33.9362%201H4.06383C2.37172%201%201%202.27093%201%203.83871V20.1613C1%2021.7291%202.37172%2023%204.06383%2023H33.9362C35.6283%2023%2037%2021.7291%2037%2020.1613V3.83871C37%202.27093%2035.6283%201%2033.9362%201Z'%20fill='white'%20stroke='black'%20stroke-opacity='0.1'%20stroke-width='0.5'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M18.8773%2016.7208C17.7252%2017.7122%2016.2307%2018.3107%2014.5977%2018.3107C10.9539%2018.3107%208%2015.331%208%2011.6553C8%207.9797%2010.9539%205%2014.5977%205C16.2307%205%2017.7252%205.59848%2018.8773%206.58987C20.0293%205.59848%2021.5238%205%2023.1568%205C26.8006%205%2029.7545%207.9797%2029.7545%2011.6553C29.7545%2015.331%2026.8006%2018.3107%2023.1568%2018.3107C21.5238%2018.3107%2020.0293%2017.7122%2018.8773%2016.7208Z'%20fill='%23ED0006'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M18.8772%2016.7208C20.2958%2015.5001%2021.1953%2013.6837%2021.1953%2011.6553C21.1953%209.627%2020.2958%207.81059%2018.8772%206.58988C20.0293%205.59848%2021.5238%205%2023.1568%205C26.8006%205%2029.7545%207.9797%2029.7545%2011.6553C29.7545%2015.331%2026.8006%2018.3107%2023.1568%2018.3107C21.5238%2018.3107%2020.0293%2017.7122%2018.8772%2016.7208Z'%20fill='%23F9A000'/%3e%3cpath%20fill-rule='evenodd'%20clip-rule='evenodd'%20d='M18.8773%2016.7208C20.2959%2015.5001%2021.1954%2013.6837%2021.1954%2011.6554C21.1954%209.62702%2020.2959%207.81061%2018.8773%206.5899C17.4587%207.81061%2016.5592%209.62702%2016.5592%2011.6554C16.5592%2013.6837%2017.4587%2015.5001%2018.8773%2016.7208Z'%20fill='%23FF5E00'/%3e%3c/svg%3e";
 const CARD_BRAND_IMAGES = {
   VISA: VisaCardImage,
   MASTERCARD: MasterCardImage,
   DEFAULT: ""
 };
-function AddCardPreview({ cardNumberState, expireDate }) {
-  const cardBrand = getCardBrand(Number(cardNumberState.first.value));
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$1.previewCard, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$1.previewHeader, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$1.chip }),
-      cardBrand !== "DEFAULT" && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: CARD_BRAND_IMAGES[cardBrand], alt: "카드 브랜드" }) })
+function AddCardPreview({
+  cardNumberState,
+  expireDate,
+  selectedBrand
+}) {
+  const overseaCardBrand = getOverseaCardBrand(cardNumberState.first.value);
+  const cardColor = selectedBrand ? CARD_BRAND_COLOR[selectedBrand] : "#A0A0A0";
+  const textColor = selectedBrand ? getTextColorForBackground(CARD_BRAND_COLOR[selectedBrand]) : "#FFFFFF";
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.previewCard, style: { backgroundColor: cardColor }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.previewHeader, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$2.chip }),
+      overseaCardBrand !== "DEFAULT" && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: CARD_BRAND_IMAGES[overseaCardBrand], alt: "카드 브랜드" }) })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$1.cardNumber, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.cardNumber, style: { color: textColor }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: cardNumberState.first.value }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: cardNumberState.second.value }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$1.dots, children: Array.from({ length: cardNumberState.third.value.length }).map(
-        (_, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(Dot, {}, index)
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$2.dots, children: Array.from({ length: cardNumberState.third.value.length }).map(
+        (_, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(Dot, { style: { backgroundColor: textColor } }, index)
       ) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$1.dots, children: Array.from({ length: cardNumberState.fourth.value.length }).map(
-        (_, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(Dot, {}, index)
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$2.dots, children: Array.from({ length: cardNumberState.fourth.value.length }).map(
+        (_, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(Dot, { style: { backgroundColor: textColor } }, index)
       ) })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$1.expire, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.expire, style: { color: textColor }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: expireDate.MM.value }),
       (expireDate.MM.value || expireDate.YY.value) && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "/" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: expireDate.YY.value })
     ] })
   ] });
 }
+const button = "_button_1r8e2_1";
+const variantDefault = "_variantDefault_1r8e2_27";
+const variantRounded = "_variantRounded_1r8e2_31";
+const sizeSmall = "_sizeSmall_1r8e2_35";
+const sizeMedium = "_sizeMedium_1r8e2_40";
+const sizeLarge = "_sizeLarge_1r8e2_45";
+const fullWidth = "_fullWidth_1r8e2_50";
+const fixed = "_fixed_1r8e2_54";
+const styles = {
+  button,
+  variantDefault,
+  variantRounded,
+  sizeSmall,
+  sizeMedium,
+  sizeLarge,
+  fullWidth,
+  fixed
+};
+function Button({
+  variant = "default",
+  size = "medium",
+  fullWidth: fullWidth2 = false,
+  fixed: fixed2 = false,
+  children,
+  className = "",
+  ...props
+}) {
+  const shouldBeFixed = fixed2 || variant === "default" && fixed2 !== false;
+  const classNames = [
+    styles.button,
+    styles[`variant${capitalizeFirstLetter(variant)}`],
+    styles[`size${capitalizeFirstLetter(size)}`],
+    fullWidth2 ? styles.fullWidth : "",
+    shouldBeFixed ? styles.fixed : "",
+    className
+  ].filter(Boolean).join(" ");
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("button", { className: classNames, ...props, children });
+}
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 function AddCard() {
   const {
-    addCardState,
-    previewState: { cardNumberState, expireDate }
-  } = useAddCard();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$9.container, children: [
+    state,
+    previewState: { cardNumberState, expireDate, selectedBrand },
+    currentStep,
+    allValid
+  } = useCardRegistrationFlow();
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$d.container, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       AddCardPreview,
       {
         cardNumberState,
-        expireDate
+        expireDate,
+        selectedBrand
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(AddCardForm, { addCardState })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(AddCardForm, { addCardState: state, currentStep }),
+    allValid && /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { variant: "default", size: "large", fullWidth: true, fixed: true, children: "확인" })
   ] });
 }
 function App() {
