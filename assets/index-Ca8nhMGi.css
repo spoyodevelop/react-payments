@@ -159,12 +159,13 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-._container_ia9aa_1 {
+._container_3kbuj_1 {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2rem;
   padding: 2rem;
-  min-width: 400px;
+  min-width: 389px;
   margin: 3rem auto 0;
 }
 ._form_17xo6_1 {
@@ -248,6 +249,61 @@ input::-webkit-inner-spin-button {
 ._input_v81jq_1::-webkit-input-placeholder {
   letter-spacing: 0.6992px;
 }
+._container_1p4bv_1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  height: 80px;
+}
+._dropdown_cdw30_1,
+._dropdown_cdw30_1::picker(select) {
+  appearance: base-select;
+}
+
+._dropdown_cdw30_1 {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #acacac;
+  height: 2.75rem;
+  transition: border-color 0.4s;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+}
+
+._dropdown_cdw30_1:hover,
+._dropdown_cdw30_1:focus {
+  border-color: #000;
+}
+
+._dropdown_cdw30_1 option {
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: background-color 0.2s;
+}
+
+._dropdown_cdw30_1 option:hover,
+._dropdown_cdw30_1 option:focus {
+  background-color: #f5f5f5;
+}
+
+._dropdown_cdw30_1 option:checked {
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+._dropdown_cdw30_1::picker(select) {
+  border: 1px solid #acacac;
+  padding: 4px;
+  top: calc(anchor(bottom) + 8px);
+  left: anchor(0%);
+  width: anchor(100%);
+  border-radius: 5px;
+}
 ._container_1xa0n_1 {
   display: flex;
   flex-direction: column;
@@ -294,24 +350,6 @@ input::-webkit-inner-spin-button {
   font-family: "Noto Sans KR";
   font-size: 0.75rem;
 }
-._container_1p4bv_1 {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  height: 80px;
-}
-._dropdown_7g73s_1 {
-  width: 100%;
-  border-radius: 4px;
-  border: 1px solid #acacac;
-  height: 2.75rem;
-  padding: 0.5rem;
-}
-
-._dropdown_7g73s_1:focus {
-  border: 1px solid #000;
-}
 ._container_s5ckw_1 {
   display: flex;
   flex-direction: column;
@@ -329,87 +367,6 @@ input::-webkit-inner-spin-button {
   color: #ff3d3d;
   font-family: "Noto Sans KR";
   font-size: 0.75rem;
-}
-._previewCard_12vsl_1 {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 26.5625rem;
-  height: 16.5625rem;
-  background-color: #333333;
-  padding: 1.25rem 1.5rem;
-  border-radius: 4px;
-  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.25);
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  box-sizing: border-box;
-}
-
-._previewHeader_12vsl_16 {
-  display: flex;
-  justify-content: space-between;
-  height: 67.5px;
-}
-
-._chip_12vsl_22 {
-  width: 3.75rem;
-  height: 2.8125rem;
-  background-color: #ddcd78;
-  border-radius: 4px;
-}
-
-._cardNumber_12vsl_29 {
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  font-size: clamp(18px, 5vw, 25px);
-  font-weight: 500;
-  height: 25px;
-}
-
-._cardNumber_12vsl_29 > span {
-  letter-spacing: 4px;
-  width: 65px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-._dots_12vsl_49 {
-  display: flex;
-  gap: 0.65rem;
-  align-items: center;
-  justify-content: center;
-  width: 65px;
-}
-
-._expire_12vsl_57 {
-  color: #fff;
-  font-size: clamp(18px, 5vw, 25px);
-  font-weight: 500;
-  letter-spacing: 3px;
-  height: 25px;
-  padding: 0 0.25rem;
-}
-
-._expire_12vsl_57 > span {
-  display: inline-block;
-  width: 30px;
-}
-
-._expire_12vsl_57 > span:nth-child(2) {
-  width: auto;
-  padding-right: 0.25rem;
-}
-._dot_xnpfw_1 {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #fff;
 }
 ._button_1r8e2_1 {
   display: flex;
@@ -470,4 +427,142 @@ input::-webkit-inner-spin-button {
   left: 0;
   right: 0;
   z-index: 100;
+}
+._previewCard_obju7_1 {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 24rem;
+  height: 15rem;
+  background-color: #333333;
+  padding: 1.25rem 1.5rem;
+  border-radius: 4px;
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+
+._previewHeader_obju7_16 {
+  display: flex;
+  justify-content: space-between;
+  height: 67.5px;
+}
+
+._chip_obju7_22 {
+  width: 3.75rem;
+  height: 2.8125rem;
+  background-color: #ddcd78;
+  border-radius: 4px;
+}
+
+._cardNumber_obju7_29 {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: clamp(18px, 5vw, 25px);
+  font-weight: 500;
+  height: 25px;
+}
+
+._cardNumber_obju7_29 > span {
+  letter-spacing: 4px;
+  width: 65px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+._dots_obju7_49 {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+}
+
+._expire_obju7_57 {
+  color: #fff;
+  font-size: clamp(18px, 5vw, 25px);
+  font-weight: 500;
+  letter-spacing: 3px;
+  height: 25px;
+  padding: 0 0.25rem;
+}
+
+._expire_obju7_57 > span {
+  display: inline-block;
+  width: 30px;
+}
+
+._expire_obju7_57 > span:nth-child(2) {
+  width: auto;
+  padding-right: 0.25rem;
+}
+._dot_xnpfw_1 {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+._container_1yqve_1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 400px;
+  min-height: 800px;
+}
+._description_1yqve_8 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+}
+
+._details_1yqve_15 {
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+._detailsSpan_1yqve_25 {
+  display: block;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+._roundCheckIcon_16zuh_1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #333;
+  color: white;
+}
+
+._checkMark_16zuh_10 {
+  width: 50%;
+  height: 50%;
+}
+
+._small_16zuh_15 {
+  width: 48px;
+  height: 48px;
+}
+
+._medium_16zuh_20 {
+  width: 64px;
+  height: 64px;
+}
+
+._large_16zuh_25 {
+  width: 80px;
+  height: 80px;
 }
