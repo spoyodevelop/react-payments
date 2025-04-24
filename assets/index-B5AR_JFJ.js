@@ -14671,7 +14671,7 @@ const PASSWORD_ERROR_MESSAGE = {
 const PasswordInputs = reactExports.forwardRef(
   ({ passwordState, handlePasswordChange }, ref) => {
     return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$5.container, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "password-input", children: "비밀번호" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "password-input", children: "비밀번호 앞 2자리" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$5.passwordInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         Input,
         {
