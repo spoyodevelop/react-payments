@@ -159,14 +159,27 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-._container_1kwvf_1 {
+._container_o90sj_1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  padding: 2rem;
-  min-width: 399px;
-  margin: 3rem auto 0;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+}
+
+@media (max-width: 480px) {
+  ._container_o90sj_1 {
+    margin: 0;
+    border-radius: 0;
+    min-height: 100vh;
+  }
 }
 ._button_107ui_1 {
   display: flex;
@@ -228,19 +241,42 @@ input::-webkit-inner-spin-button {
   right: 0;
   z-index: 100;
 }
-._title_47ios_1 {
+._title_19d6k_1 {
   margin-bottom: 0.5rem;
   color: #000;
   font-family: "Noto Sans KR";
   font-size: 1.5rem;
   font-weight: 700;
+  animation: _fadeInDown_19d6k_1 0.5s ease-out;
 }
 
-._guideText_47ios_9 {
+._guideText_19d6k_10 {
   margin-bottom: 1.5rem;
   color: #8b95a1;
   font-family: "Noto Sans KR";
   font-size: 0.9rem;
+  line-height: 1.4;
+  animation: _fadeIn_19d6k_1 0.7s ease-out;
+}
+
+@keyframes _fadeInDown_19d6k_1 {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes _fadeIn_19d6k_1 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 ._container_an611_1 {
   display: flex;
@@ -310,7 +346,7 @@ input::-webkit-inner-spin-button {
   margin-top: 1rem;
   height: 60px;
 }
-._dropdown_17nuy_1 {
+._dropdown_dwpua_1 {
   width: 100%;
   border-radius: 4px;
   border: 1px solid #acacac;
@@ -323,34 +359,34 @@ input::-webkit-inner-spin-button {
   justify-content: center;
   padding: 0 12px;
 }
-/* 사파리 지원이 안되던데용, 근데 시멘틱 meaning을 날리기는 싫어서 이렇게 구성했습니다. */
-._dropdown_17nuy_1,
-._dropdown_17nuy_1::picker(select) {
+/* 실험적 기능이니, 사파리는 지원하지 않습니다.  */
+._dropdown_dwpua_1,
+._dropdown_dwpua_1::picker(select) {
   appearance: base-select;
 }
 
-._dropdown_17nuy_1:hover,
-._dropdown_17nuy_1:focus {
+._dropdown_dwpua_1:hover,
+._dropdown_dwpua_1:focus {
   border-color: #000;
 }
 
-._dropdown_17nuy_1 option {
+._dropdown_dwpua_1 option {
   padding: 10px 12px;
   border-radius: 10px;
   transition: background-color 0.2s;
 }
 
-._dropdown_17nuy_1 option:hover,
-._dropdown_17nuy_1 option:focus {
+._dropdown_dwpua_1 option:hover,
+._dropdown_dwpua_1 option:focus {
   background-color: #f5f5f5;
 }
 
-._dropdown_17nuy_1 option:checked {
+._dropdown_dwpua_1 option:checked {
   font-weight: bold;
   background-color: #f0f0f0;
 }
 
-._dropdown_17nuy_1::picker(select) {
+._dropdown_dwpua_1::picker(select) {
   border: 1px solid #acacac;
   padding: 4px;
   top: calc(anchor(bottom) + 8px);

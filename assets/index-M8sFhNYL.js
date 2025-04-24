@@ -12080,7 +12080,7 @@ function requireClient() {
 }
 var clientExports = requireClient();
 const ReactDOM = /* @__PURE__ */ getDefaultExportFromCjs(clientExports);
-const container$6 = "_container_1kwvf_1";
+const container$6 = "_container_o90sj_1";
 const styles$f = {
   container: container$6
 };
@@ -14377,8 +14377,8 @@ function Button({
     }
   );
 }
-const title = "_title_47ios_1";
-const guideText = "_guideText_47ios_9";
+const title = "_title_19d6k_1";
+const guideText = "_guideText_19d6k_10";
 const styles$d = {
   title,
   guideText
@@ -14472,65 +14472,65 @@ function useAutoFocus(keys) {
   };
   return { inputRefs, handleAutoFocus };
 }
-function CardNumberInputs({
-  cardNumberState,
-  handleCardNumberChange
-}) {
-  const { first, second, third, fourth } = cardNumberState;
-  const { inputRefs, handleAutoFocus } = useAutoFocus(
-    CARD_NUMBER_INPUT_KEYS
-  );
-  const errorMessages = [
-    first.errorMessage,
-    second.errorMessage,
-    third.errorMessage,
-    fourth.errorMessage
-  ].filter((msg) => !!msg);
-  const latestErrorMessage = errorMessages.length ? errorMessages[errorMessages.length - 1] : "";
-  const handleInputChange = (key, value) => {
-    handleCardNumberChange(key, value);
-    handleAutoFocus(key, value, CARD_NUMBER_INPUT_KEYS, CARD_NUMBER_LENGTH);
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$c.container, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$c.cardInputs, children: CARD_NUMBER_INPUT_KEYS.map((inputKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$c.cardInputBox, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Label,
+const CardNumberInputs = reactExports.forwardRef(
+  ({ cardNumberState, handleCardNumberChange }, ref) => {
+    const { first, second, third, fourth } = cardNumberState;
+    const { inputRefs, handleAutoFocus } = useAutoFocus(
+      CARD_NUMBER_INPUT_KEYS
+    );
+    const errorMessages = [
+      first.errorMessage,
+      second.errorMessage,
+      third.errorMessage,
+      fourth.errorMessage
+    ].filter((msg) => !!msg);
+    const latestErrorMessage = errorMessages.length ? errorMessages[errorMessages.length - 1] : "";
+    const handleInputChange = (key, value) => {
+      handleCardNumberChange(key, value);
+      handleAutoFocus(key, value, CARD_NUMBER_INPUT_KEYS, CARD_NUMBER_LENGTH);
+    };
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$c.container, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$c.cardInputs, children: CARD_NUMBER_INPUT_KEYS.map((inputKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$c.cardInputBox, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Label,
+          {
+            htmlFor: `card-number-${inputKey}-input`,
+            isHidden: idx !== 0,
+            children: "카드 번호"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Input,
+          {
+            id: `card-number-${inputKey}-input`,
+            type: "text",
+            maxLength: CARD_NUMBER_LENGTH,
+            placeholder: "1234",
+            isError: Boolean(cardNumberState[inputKey].errorMessage),
+            value: cardNumberState[inputKey].value,
+            onChange: (e) => handleInputChange(inputKey, e.target.value),
+            ref: idx === 0 ? ref : inputRefs[inputKey]
+          }
+        )
+      ] }, inputKey)) }),
+      latestErrorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "span",
         {
-          htmlFor: `card-number-${inputKey}-input`,
-          isHidden: idx !== 0,
-          children: "카드 번호"
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Input,
-        {
-          id: `card-number-${inputKey}-input`,
-          type: "text",
-          maxLength: CARD_NUMBER_LENGTH,
-          placeholder: "1234",
-          isError: Boolean(cardNumberState[inputKey].errorMessage),
-          value: cardNumberState[inputKey].value,
-          onChange: (e) => handleInputChange(inputKey, e.target.value),
-          ref: inputRefs[inputKey]
+          id: "card-number-error-message",
+          role: "alert",
+          className: styles$c.errorMessage,
+          children: latestErrorMessage
         }
       )
-    ] }, inputKey)) }),
-    latestErrorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "span",
-      {
-        id: "card-number-error-message",
-        role: "alert",
-        className: styles$c.errorMessage,
-        children: latestErrorMessage
-      }
-    )
-  ] });
-}
+    ] });
+  }
+);
+CardNumberInputs.displayName = "CardNumberInputs";
 const container$4 = "_container_4t5r2_1";
 const styles$9 = {
   container: container$4
 };
-const dropdown = "_dropdown_17nuy_1";
+const dropdown = "_dropdown_dwpua_1";
 const styles$8 = {
   dropdown
 };
@@ -14733,6 +14733,7 @@ const styles$4 = {
   form
 };
 function useFocusControl(currentStep, allValid) {
+  const firstCardNumberInputRef = reactExports.useRef(null);
   const brandDropdownRef = reactExports.useRef(null);
   const expireMonthInputRef = reactExports.useRef(null);
   const cvcInputRef = reactExports.useRef(null);
@@ -14741,22 +14742,25 @@ function useFocusControl(currentStep, allValid) {
   const currentIndex = STEP_ORDER.indexOf(currentStep);
   reactExports.useEffect(() => {
     const timeoutId = setTimeout(() => {
-      var _a, _b, _c, _d, _e;
-      if (currentIndex === 1) {
-        (_a = brandDropdownRef.current) == null ? void 0 : _a.focus();
+      var _a, _b, _c, _d, _e, _f;
+      if (currentIndex === 0) {
+        (_a = firstCardNumberInputRef.current) == null ? void 0 : _a.focus();
+      } else if (currentIndex === 1) {
+        (_b = brandDropdownRef.current) == null ? void 0 : _b.focus();
       } else if (currentIndex === 2) {
-        (_b = expireMonthInputRef.current) == null ? void 0 : _b.focus();
+        (_c = expireMonthInputRef.current) == null ? void 0 : _c.focus();
       } else if (currentIndex === 3) {
-        (_c = cvcInputRef.current) == null ? void 0 : _c.focus();
+        (_d = cvcInputRef.current) == null ? void 0 : _d.focus();
       } else if (currentIndex === 4) {
-        (_d = passwordInputRef.current) == null ? void 0 : _d.focus();
+        (_e = passwordInputRef.current) == null ? void 0 : _e.focus();
       } else if (allValid) {
-        (_e = addCardButtonRef.current) == null ? void 0 : _e.focus();
+        (_f = addCardButtonRef.current) == null ? void 0 : _f.focus();
       }
     }, 0);
     return () => clearTimeout(timeoutId);
   }, [currentIndex, allValid]);
   return {
+    firstCardNumberInputRef,
     brandDropdownRef,
     expireMonthInputRef,
     cvcInputRef,
@@ -14785,6 +14789,7 @@ function AddCardForm({
   const navigate = useNavigate();
   const currentIndex = STEP_ORDER.indexOf(currentStep);
   const {
+    firstCardNumberInputRef,
     brandDropdownRef,
     expireMonthInputRef,
     cvcInputRef,
@@ -14808,6 +14813,7 @@ function AddCardForm({
         InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
           CardNumberInputs,
           {
+            ref: firstCardNumberInputRef,
             cardNumberState,
             handleCardNumberChange
           }
