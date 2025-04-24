@@ -14404,6 +14404,23 @@ const styles$c = {
   cardInputBox,
   errorMessage: errorMessage$3
 };
+const CARD_NUMBER_INPUT_KEYS = [
+  "first",
+  "second",
+  "third",
+  "fourth"
+];
+const INITIAL_CARD_NUMBER_STATE = {
+  first: { value: "", errorMessage: "" },
+  second: { value: "", errorMessage: "" },
+  third: { value: "", errorMessage: "" },
+  fourth: { value: "", errorMessage: "" }
+};
+const EXPIRE_DATE_ERROR_MESSAGE$2 = {
+  INVALID_NUMBER: "숫자만 입력 가능합니다.",
+  INVALID_CARD_LENGTH: "4자리의 숫자만 입력 가능합니다."
+};
+const CARD_NUMBER_LENGTH = 4;
 const label = "_label_1vjtc_1";
 const hidden = "_hidden_1vjtc_8";
 const styles$b = {
@@ -14438,28 +14455,31 @@ const Input = reactExports.forwardRef(
     );
   }
 );
-const CARD_NUMBER_INPUT_KEYS = [
-  "first",
-  "second",
-  "third",
-  "fourth"
-];
-const INITIAL_CARD_NUMBER_STATE = {
-  first: { value: "", errorMessage: "" },
-  second: { value: "", errorMessage: "" },
-  third: { value: "", errorMessage: "" },
-  fourth: { value: "", errorMessage: "" }
-};
-const EXPIRE_DATE_ERROR_MESSAGE$2 = {
-  INVALID_NUMBER: "숫자만 입력 가능합니다.",
-  INVALID_CARD_LENGTH: "4자리의 숫자만 입력 가능합니다."
-};
-const CARD_NUMBER_LENGTH = 4;
+function useAutoFocus(keys) {
+  const inputRefs = keys.reduce((acc, key) => {
+    acc[key] = reactExports.useRef(null);
+    return acc;
+  }, {});
+  const handleAutoFocus = (currentKey, value, keys2, maxLength) => {
+    var _a, _b;
+    if (value.length === maxLength) {
+      const currentIndex = keys2.indexOf(currentKey);
+      const nextKey = keys2[currentIndex + 1];
+      if (nextKey && ((_a = inputRefs[nextKey]) == null ? void 0 : _a.current)) {
+        (_b = inputRefs[nextKey].current) == null ? void 0 : _b.focus();
+      }
+    }
+  };
+  return { inputRefs, handleAutoFocus };
+}
 function CardNumberInputs({
   cardNumberState,
   handleCardNumberChange
 }) {
   const { first, second, third, fourth } = cardNumberState;
+  const { inputRefs, handleAutoFocus } = useAutoFocus(
+    CARD_NUMBER_INPUT_KEYS
+  );
   const errorMessages = [
     first.errorMessage,
     second.errorMessage,
@@ -14467,6 +14487,10 @@ function CardNumberInputs({
     fourth.errorMessage
   ].filter((msg) => !!msg);
   const latestErrorMessage = errorMessages.length ? errorMessages[errorMessages.length - 1] : "";
+  const handleInputChange = (key, value) => {
+    handleCardNumberChange(key, value);
+    handleAutoFocus(key, value, CARD_NUMBER_INPUT_KEYS, CARD_NUMBER_LENGTH);
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$c.container, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$c.cardInputs, children: CARD_NUMBER_INPUT_KEYS.map((inputKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$c.cardInputBox, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -14486,7 +14510,8 @@ function CardNumberInputs({
           placeholder: "1234",
           isError: Boolean(cardNumberState[inputKey].errorMessage),
           value: cardNumberState[inputKey].value,
-          onChange: (e) => handleCardNumberChange(inputKey, e.target.value)
+          onChange: (e) => handleInputChange(inputKey, e.target.value),
+          ref: inputRefs[inputKey]
         }
       )
     ] }, inputKey)) }),
@@ -14581,9 +14606,14 @@ const CardExpireDateInputs = reactExports.forwardRef(
     handleExpireYearChange,
     handleExpireMonthBlur
   }, ref) => {
-    const changeEvent = {
+    const { inputRefs, handleAutoFocus } = useAutoFocus(EXPIRE_DATE_KEYS);
+    const changeHandlers = {
       MM: handleExpireMonthChange,
       YY: handleExpireYearChange
+    };
+    const handleInputChange = (key, value) => {
+      changeHandlers[key](value);
+      handleAutoFocus(key, value, EXPIRE_DATE_KEYS, EXPIRE_DATE_LENGTH);
     };
     return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey, idx) => {
       return /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$7.expireDateInputBox, children: [
@@ -14598,14 +14628,14 @@ const CardExpireDateInputs = reactExports.forwardRef(
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           Input,
           {
-            ref: idx === 0 ? ref : void 0,
+            ref: idx === 0 ? ref : inputRefs[expireKey],
             id: `expire-${expireKey}-input`,
             type: "text",
             maxLength: EXPIRE_DATE_LENGTH,
             placeholder: expireKey,
             isError: Boolean(expireDate[expireKey].errorMessage),
             value: expireDate[expireKey].value,
-            onChange: (e) => changeEvent[expireKey](e.target.value),
+            onChange: (e) => handleInputChange(expireKey, e.target.value),
             onBlur: idx === 0 ? (e) => handleExpireMonthBlur(e.target.value) : void 0
           }
         ),
@@ -14621,6 +14651,7 @@ const CardExpireDateInputs = reactExports.forwardRef(
     }) }) });
   }
 );
+CardExpireDateInputs.displayName = "CardExpireDateInputs";
 const container$2 = "_container_1sop9_1";
 const cvcInputs = "_cvcInputs_1sop9_9";
 const errorMessage$1 = "_errorMessage_1sop9_14";
