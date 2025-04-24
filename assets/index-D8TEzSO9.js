@@ -4955,9 +4955,9 @@ function requireReactDomClient_production() {
     }
     function reconcileChildrenIterator(returnFiber, currentFirstChild, newChildren, lanes) {
       if (null == newChildren) throw Error(formatProdErrorMessage(151));
-      for (var resultingFirstChild = null, previousNewFiber = null, oldFiber = currentFirstChild, newIdx = currentFirstChild = 0, nextOldFiber = null, step = newChildren.next(); null !== oldFiber && !step.done; newIdx++, step = newChildren.next()) {
+      for (var resultingFirstChild = null, previousNewFiber = null, oldFiber = currentFirstChild, newIdx = currentFirstChild = 0, nextOldFiber = null, step2 = newChildren.next(); null !== oldFiber && !step2.done; newIdx++, step2 = newChildren.next()) {
         oldFiber.index > newIdx ? (nextOldFiber = oldFiber, oldFiber = null) : nextOldFiber = oldFiber.sibling;
-        var newFiber = updateSlot(returnFiber, oldFiber, step.value, lanes);
+        var newFiber = updateSlot(returnFiber, oldFiber, step2.value, lanes);
         if (null === newFiber) {
           null === oldFiber && (oldFiber = nextOldFiber);
           break;
@@ -4968,16 +4968,16 @@ function requireReactDomClient_production() {
         previousNewFiber = newFiber;
         oldFiber = nextOldFiber;
       }
-      if (step.done)
+      if (step2.done)
         return deleteRemainingChildren(returnFiber, oldFiber), isHydrating && pushTreeFork(returnFiber, newIdx), resultingFirstChild;
       if (null === oldFiber) {
-        for (; !step.done; newIdx++, step = newChildren.next())
-          step = createChild(returnFiber, step.value, lanes), null !== step && (currentFirstChild = placeChild(step, currentFirstChild, newIdx), null === previousNewFiber ? resultingFirstChild = step : previousNewFiber.sibling = step, previousNewFiber = step);
+        for (; !step2.done; newIdx++, step2 = newChildren.next())
+          step2 = createChild(returnFiber, step2.value, lanes), null !== step2 && (currentFirstChild = placeChild(step2, currentFirstChild, newIdx), null === previousNewFiber ? resultingFirstChild = step2 : previousNewFiber.sibling = step2, previousNewFiber = step2);
         isHydrating && pushTreeFork(returnFiber, newIdx);
         return resultingFirstChild;
       }
-      for (oldFiber = mapRemainingChildren(oldFiber); !step.done; newIdx++, step = newChildren.next())
-        step = updateFromMap(oldFiber, returnFiber, newIdx, step.value, lanes), null !== step && (shouldTrackSideEffects && null !== step.alternate && oldFiber.delete(null === step.key ? newIdx : step.key), currentFirstChild = placeChild(step, currentFirstChild, newIdx), null === previousNewFiber ? resultingFirstChild = step : previousNewFiber.sibling = step, previousNewFiber = step);
+      for (oldFiber = mapRemainingChildren(oldFiber); !step2.done; newIdx++, step2 = newChildren.next())
+        step2 = updateFromMap(oldFiber, returnFiber, newIdx, step2.value, lanes), null !== step2 && (shouldTrackSideEffects && null !== step2.alternate && oldFiber.delete(null === step2.key ? newIdx : step2.key), currentFirstChild = placeChild(step2, currentFirstChild, newIdx), null === previousNewFiber ? resultingFirstChild = step2 : previousNewFiber.sibling = step2, previousNewFiber = step2);
       shouldTrackSideEffects && oldFiber.forEach(function(child) {
         return deleteChild(returnFiber, child);
       });
@@ -12080,10 +12080,27 @@ function requireClient() {
 }
 var clientExports = requireClient();
 const ReactDOM = /* @__PURE__ */ getDefaultExportFromCjs(clientExports);
-const container$6 = "_container_o90sj_1";
-const styles$f = {
+const container$6 = "_container_22xzz_1";
+const styles$g = {
   container: container$6
 };
+const STEP_ORDER = [
+  "CARD_NUMBER",
+  "CARD_BRAND",
+  "EXPIRE_DATE",
+  "CVC",
+  "PASSWORD",
+  "COMPLETE"
+];
+const STEP_ORDER_INDEX = {
+  CARD_NUMBER: 1,
+  CARD_BRAND: 2,
+  EXPIRE_DATE: 3,
+  CVC: 4,
+  PASSWORD: 5,
+  COMPLETE: 6
+};
+const STEP_LABELS = ["카드번호", "카드사", "만료일", "CVC", "비밀번호"];
 var dist = {};
 var hasRequiredDist;
 function requireDist() {
@@ -14341,7 +14358,7 @@ const medium$1 = "_medium_107ui_40";
 const large$1 = "_large_107ui_45";
 const fullWidth = "_fullWidth_107ui_50";
 const fixed = "_fixed_107ui_54";
-const styles$e = {
+const styles$f = {
   button,
   "default": "_default_107ui_27",
   rounded,
@@ -14365,11 +14382,11 @@ function Button({
     "button",
     {
       className: clsx(
-        styles$e.button,
-        styles$e[variant],
-        styles$e[size],
-        fullWidth2 && styles$e.fullWidth,
-        shouldBeFixed && styles$e.fixed,
+        styles$f.button,
+        styles$f[variant],
+        styles$f[size],
+        fullWidth2 && styles$f.fullWidth,
+        shouldBeFixed && styles$f.fixed,
         className
       ),
       ...props,
@@ -14379,7 +14396,7 @@ function Button({
 }
 const title = "_title_19d6k_1";
 const guideText = "_guideText_19d6k_10";
-const styles$d = {
+const styles$e = {
   title,
   guideText
 };
@@ -14388,21 +14405,21 @@ function CardInputBox({
   guideText: guideText2,
   InputComponents
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$d.container, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: styles$d.title, children: title2 }),
-    guideText2 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$d.guideText, children: guideText2 }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$e.container, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: styles$e.title, children: title2 }),
+    guideText2 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$e.guideText, children: guideText2 }),
     InputComponents
   ] });
 }
 const container$5 = "_container_an611_1";
 const cardInputs = "_cardInputs_an611_8";
 const cardInputBox = "_cardInputBox_an611_13";
-const errorMessage$3 = "_errorMessage_an611_20";
-const styles$c = {
+const errorMessage$4 = "_errorMessage_an611_20";
+const styles$d = {
   container: container$5,
   cardInputs,
   cardInputBox,
-  errorMessage: errorMessage$3
+  errorMessage: errorMessage$4
 };
 const CARD_NUMBER_INPUT_KEYS = [
   "first",
@@ -14423,7 +14440,7 @@ const EXPIRE_DATE_ERROR_MESSAGE$2 = {
 const CARD_NUMBER_LENGTH = 4;
 const label = "_label_1vjtc_1";
 const hidden = "_hidden_1vjtc_8";
-const styles$b = {
+const styles$c = {
   label,
   hidden
 };
@@ -14432,16 +14449,16 @@ function Label({ isHidden, children, ...props }) {
     "label",
     {
       ...props,
-      className: `${styles$b.label} ${isHidden ? styles$b.hidden : ""}`,
+      className: `${styles$c.label} ${isHidden ? styles$c.hidden : ""}`,
       children
     }
   );
 }
 const input = "_input_v81jq_1";
-const error = "_error_v81jq_13";
-const styles$a = {
+const error$1 = "_error_v81jq_13";
+const styles$b = {
   input,
-  error
+  error: error$1
 };
 const Input = reactExports.forwardRef(
   ({ isError, ...props }, ref) => {
@@ -14450,7 +14467,7 @@ const Input = reactExports.forwardRef(
       {
         ref,
         ...props,
-        className: `${styles$a.input} ${isError ? styles$a.error : ""}`
+        className: `${styles$b.input} ${isError ? styles$b.error : ""}`
       }
     );
   }
@@ -14489,8 +14506,8 @@ const CardNumberInputs = reactExports.forwardRef(
       handleCardNumberChange(key, value);
       handleAutoFocus(key, value, CARD_NUMBER_INPUT_KEYS, CARD_NUMBER_LENGTH);
     };
-    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$c.container, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$c.cardInputs, children: CARD_NUMBER_INPUT_KEYS.map((inputKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$c.cardInputBox, children: [
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$d.container, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$d.cardInputs, children: CARD_NUMBER_INPUT_KEYS.map((inputKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$d.cardInputBox, children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           Label,
           {
@@ -14518,7 +14535,7 @@ const CardNumberInputs = reactExports.forwardRef(
         {
           id: "card-number-error-message",
           role: "alert",
-          className: styles$c.errorMessage,
+          className: styles$d.errorMessage,
           children: latestErrorMessage
         }
       )
@@ -14527,16 +14544,16 @@ const CardNumberInputs = reactExports.forwardRef(
 );
 CardNumberInputs.displayName = "CardNumberInputs";
 const container$4 = "_container_4t5r2_1";
-const styles$9 = {
+const styles$a = {
   container: container$4
 };
 const dropdown = "_dropdown_dwpua_1";
-const styles$8 = {
+const styles$9 = {
   dropdown
 };
 const Dropdown = reactExports.forwardRef(
   ({ options, placeholder, ...props }, ref) => {
-    return /* @__PURE__ */ jsxRuntimeExports.jsxs("select", { ref, ...props, className: styles$8.dropdown, children: [
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("select", { ref, ...props, className: styles$9.dropdown, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", disabled: true, children: placeholder }),
       options.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: item, children: item }, item))
     ] });
@@ -14564,7 +14581,7 @@ const CARD_BRAND = [
 ];
 const CardBrandDropdown = reactExports.forwardRef(
   ({ selectedBrand, setSelectedBrand }, ref) => {
-    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$9.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$a.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Dropdown,
       {
         ref,
@@ -14580,12 +14597,12 @@ const CardBrandDropdown = reactExports.forwardRef(
 const container$3 = "_container_1xa0n_1";
 const expireDateInputContainer = "_expireDateInputContainer_1xa0n_9";
 const expireDateInputBox = "_expireDateInputBox_1xa0n_14";
-const errorMessage$2 = "_errorMessage_1xa0n_23";
-const styles$7 = {
+const errorMessage$3 = "_errorMessage_1xa0n_23";
+const styles$8 = {
   container: container$3,
   expireDateInputContainer,
   expireDateInputBox,
-  errorMessage: errorMessage$2
+  errorMessage: errorMessage$3
 };
 const EXPIRE_DATE_ERROR_MESSAGE$1 = {
   INVALID_NUMBER: "숫자만 입력 가능합니다.",
@@ -14615,8 +14632,8 @@ const CardExpireDateInputs = reactExports.forwardRef(
       changeHandlers[key](value);
       handleAutoFocus(key, value, EXPIRE_DATE_KEYS, EXPIRE_DATE_LENGTH);
     };
-    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey, idx) => {
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$7.expireDateInputBox, children: [
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$8.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$8.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey, idx) => {
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$8.expireDateInputBox, children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           Label,
           {
@@ -14643,7 +14660,7 @@ const CardExpireDateInputs = reactExports.forwardRef(
           "span",
           {
             id: `${expireKey}-error-message`,
-            className: styles$7.errorMessage,
+            className: styles$8.errorMessage,
             children: expireDate[expireKey].errorMessage
           }
         )
@@ -14654,11 +14671,11 @@ const CardExpireDateInputs = reactExports.forwardRef(
 CardExpireDateInputs.displayName = "CardExpireDateInputs";
 const container$2 = "_container_1sop9_1";
 const cvcInputs = "_cvcInputs_1sop9_9";
-const errorMessage$1 = "_errorMessage_1sop9_14";
-const styles$6 = {
+const errorMessage$2 = "_errorMessage_1sop9_14";
+const styles$7 = {
   container: container$2,
   cvcInputs,
-  errorMessage: errorMessage$1
+  errorMessage: errorMessage$2
 };
 const CVC_INPUT_LENGTH = 3;
 const EXPIRE_DATE_ERROR_MESSAGE = {
@@ -14667,9 +14684,9 @@ const EXPIRE_DATE_ERROR_MESSAGE = {
 };
 const CVCInputs = reactExports.forwardRef(
   ({ CVCState, handleCVCChange }, ref) => {
-    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.container, children: [
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.container, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "cvc-input", children: "CVC" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$6.cvcInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$7.cvcInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         Input,
         {
           ref,
@@ -14682,17 +14699,17 @@ const CVCInputs = reactExports.forwardRef(
           onChange: (e) => handleCVCChange(e.target.value)
         }
       ) }),
-      CVCState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$6.errorMessage, children: CVCState.errorMessage })
+      CVCState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$7.errorMessage, children: CVCState.errorMessage })
     ] });
   }
 );
 const container$1 = "_container_s5ckw_1";
 const passwordInputs = "_passwordInputs_s5ckw_9";
-const errorMessage = "_errorMessage_s5ckw_14";
-const styles$5 = {
+const errorMessage$1 = "_errorMessage_s5ckw_14";
+const styles$6 = {
   container: container$1,
   passwordInputs,
-  errorMessage
+  errorMessage: errorMessage$1
 };
 const PASSWORD_INPUT_LENGTH = 2;
 const PASSWORD_ERROR_MESSAGE = {
@@ -14701,9 +14718,9 @@ const PASSWORD_ERROR_MESSAGE = {
 };
 const PasswordInputs = reactExports.forwardRef(
   ({ passwordState, handlePasswordChange }, ref) => {
-    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$5.container, children: [
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.container, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "password-input", children: "비밀번호 앞 2자리" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$5.passwordInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$6.passwordInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         Input,
         {
           ref,
@@ -14716,20 +14733,12 @@ const PasswordInputs = reactExports.forwardRef(
           onChange: (e) => handlePasswordChange(e.target.value)
         }
       ) }),
-      passwordState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$5.errorMessage, children: passwordState.errorMessage })
+      passwordState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$6.errorMessage, children: passwordState.errorMessage })
     ] });
   }
 );
-const STEP_ORDER = [
-  "CARD_NUMBER",
-  "CARD_BRAND",
-  "EXPIRE_DATE",
-  "CVC",
-  "PASSWORD",
-  "COMPLETE"
-];
 const form = "_form_1ehtn_1";
-const styles$4 = {
+const styles$5 = {
   form
 };
 function useFocusControl(currentStep, allValid) {
@@ -14804,7 +14813,7 @@ function AddCardForm({
       }
     });
   }
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { className: styles$4.form, onSubmit: (e) => e.preventDefault(), children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { className: styles$5.form, onSubmit: (e) => e.preventDefault(), children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       CardInputBox,
       {
@@ -14900,7 +14909,7 @@ const chip = "_chip_1e503_23";
 const cardNumber = "_cardNumber_1e503_30";
 const dots = "_dots_1e503_50";
 const expire = "_expire_1e503_58";
-const styles$3 = {
+const styles$4 = {
   previewCard,
   previewHeader,
   chip,
@@ -14909,11 +14918,11 @@ const styles$3 = {
   expire
 };
 const dot = "_dot_xnpfw_1";
-const styles$2 = {
+const styles$3 = {
   dot
 };
 function Dot({ style }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$2.dot, style });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$3.dot, style });
 }
 const getOverseaCardBrand = (cardNumber2) => {
   if (cardNumber2[0] === "4") {
@@ -14952,28 +14961,93 @@ function AddCardPreview({
   const overseaCardBrand = getOverseaCardBrand(cardNumberState.first.value);
   const cardColor = selectedBrand ? CARD_BRAND_COLOR[selectedBrand] : "#A0A0A0";
   const textColor = selectedBrand ? getTextColorForBackground(CARD_BRAND_COLOR[selectedBrand]) : "#FFFFFF";
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$3.previewCard, style: { backgroundColor: cardColor }, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$3.previewHeader, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$3.chip }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$4.previewCard, style: { backgroundColor: cardColor }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$4.previewHeader, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$4.chip }),
       overseaCardBrand !== "DEFAULT" && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: CARD_BRAND_IMAGES[overseaCardBrand], alt: "카드 브랜드" }) })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$3.cardNumber, style: { color: textColor }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$4.cardNumber, style: { color: textColor }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: cardNumberState.first.value }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: cardNumberState.second.value }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$3.dots, children: Array.from({ length: cardNumberState.third.value.length }).map(
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$4.dots, children: Array.from({ length: cardNumberState.third.value.length }).map(
         (_, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(Dot, { style: { backgroundColor: textColor } }, index)
       ) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$3.dots, children: Array.from({ length: cardNumberState.fourth.value.length }).map(
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$4.dots, children: Array.from({ length: cardNumberState.fourth.value.length }).map(
         (_, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(Dot, { style: { backgroundColor: textColor } }, index)
       ) })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$3.expire, style: { color: textColor }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$4.expire, style: { color: textColor }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: expireDate.MM.value }),
       (expireDate.MM.value || expireDate.YY.value) && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "/" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: expireDate.YY.value })
     ] })
   ] });
 }
+const progressBarContainer = "_progressBarContainer_16mgg_1";
+const stepsIndicator = "_stepsIndicator_16mgg_9";
+const step = "_step_16mgg_9";
+const stepBar = "_stepBar_16mgg_26";
+const stepCircle = "_stepCircle_16mgg_30";
+const active = "_active_16mgg_48";
+const error = "_error_16mgg_54";
+const stepBarFill = "_stepBarFill_16mgg_70";
+const stepLabel = "_stepLabel_16mgg_87";
+const errorMessage = "_errorMessage_16mgg_97";
+const styles$2 = {
+  progressBarContainer,
+  stepsIndicator,
+  step,
+  stepBar,
+  stepCircle,
+  active,
+  error,
+  stepBarFill,
+  stepLabel,
+  errorMessage
+};
+const ProgressBar = ({
+  currentStep,
+  allValid,
+  stepLabels
+}) => {
+  const currentStepNumber = STEP_ORDER_INDEX[currentStep] || 1;
+  const showError = currentStep === "COMPLETE" && allValid === false;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.progressBarContainer, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.stepsIndicator, children: stepLabels.map((label2, index) => {
+      const stepNumber = index + 1;
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: clsx(
+            styles$2.step,
+            stepNumber <= currentStepNumber && styles$2.active,
+            showError && styles$2.error
+          ),
+          "aria-label": `Step ${stepNumber}: ${label2}`,
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.stepCircle, children: stepNumber }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.stepBar, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "div",
+              {
+                className: clsx(
+                  styles$2.stepBarFill,
+                  stepNumber <= currentStepNumber && styles$2.active,
+                  showError && styles$2.error
+                ),
+                style: {
+                  width: stepNumber <= currentStepNumber ? "100%" : "0%"
+                }
+              }
+            ) }),
+            !showError && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.stepLabel, children: label2 })
+          ]
+        },
+        stepNumber
+      );
+    }) }),
+    showError && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$2.errorMessage, children: "입력값이 유효하지 않으니 다시 입력해주세요!" })
+  ] });
+};
 const isNaN$1 = (value) => {
   return typeof value === "number" && Number.isNaN(value);
 };
@@ -15263,7 +15337,15 @@ const useCardRegistrationFlow = () => {
 function AddCard() {
   const { state, previewState, currentStep, allValid } = useCardRegistrationFlow();
   const { cardNumberState, expireDate, selectedBrand } = previewState;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$f.container, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$g.container, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      ProgressBar,
+      {
+        currentStep,
+        allValid,
+        stepLabels: STEP_LABELS
+      }
+    ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       AddCardPreview,
       {
