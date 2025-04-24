@@ -14728,7 +14728,7 @@ const STEP_ORDER = [
   "PASSWORD",
   "COMPLETE"
 ];
-const form = "_form_17xo6_1";
+const form = "_form_16gnj_1";
 const styles$4 = {
   form
 };
@@ -15180,15 +15180,9 @@ const validators = [
   ({ cvc }) => !cvc.CVCState.errorMessage && cvc.CVCState.value.length === 3,
   ({ password }) => !password.passwordState.errorMessage && password.passwordState.value.length === 2
 ];
-const useCardRegistrationFlow = () => {
-  const card = useControlledCardNumber();
-  const brand = useControlledSelectedCardBrand();
-  const expire2 = useControlledExpireDate();
-  const cvc = useControlledCVC();
-  const password = useControlledPassword();
+const useStepValidation = (slices, dependencies) => {
   const maxReachedStep = reactExports.useRef(0);
-  const slices = { card, brand, expire: expire2, cvc, password };
-  const { currentStep, allValid } = reactExports.useMemo(() => {
+  return reactExports.useMemo(() => {
     let validAll = true;
     let currentValidStep = 0;
     for (let i = 0; i < validators.length; i++) {
@@ -15207,20 +15201,38 @@ const useCardRegistrationFlow = () => {
       currentStep: STEP_ORDER[stepIndex],
       allValid: validAll && currentValidStep >= validators.length
     };
-  }, [
-    card.cardNumberState,
-    brand.selectedBrand,
-    expire2.expireDate,
-    cvc.CVCState,
-    password.passwordState
-  ]);
+  }, dependencies);
+};
+const useFormState = (slices) => {
+  const { card, brand, expire: expire2, cvc, password } = slices;
   return {
     state: { ...card, ...brand, ...expire2, ...cvc, ...password },
     previewState: {
       cardNumberState: card.cardNumberState,
       selectedBrand: brand.selectedBrand,
       expireDate: expire2.expireDate
-    },
+    }
+  };
+};
+const useCardRegistrationFlow = () => {
+  const card = useControlledCardNumber();
+  const brand = useControlledSelectedCardBrand();
+  const expire2 = useControlledExpireDate();
+  const cvc = useControlledCVC();
+  const password = useControlledPassword();
+  const slices = { card, brand, expire: expire2, cvc, password };
+  const dependencies = [
+    card.cardNumberState,
+    brand.selectedBrand,
+    expire2.expireDate,
+    cvc.CVCState,
+    password.passwordState
+  ];
+  const { currentStep, allValid } = useStepValidation(slices, dependencies);
+  const { state, previewState } = useFormState(slices);
+  return {
+    state,
+    previewState,
     currentStep,
     allValid
   };
