@@ -242,27 +242,26 @@ input::-webkit-inner-spin-button {
   font-family: "Noto Sans KR";
   font-size: 0.9rem;
 }
-._container_1cm80_1 {
+._container_an611_1 {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: 1rem;
   height: 80px;
 }
 
-._cardInputs_1cm80_9 {
+._cardInputs_an611_8 {
   display: flex;
   gap: 0.62rem;
 }
 
-._cardInputBox_1cm80_14 {
+._cardInputBox_an611_13 {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   justify-content: flex-end;
 }
 
-._errorMessage_1cm80_21 {
+._errorMessage_an611_20 {
   color: #ff3d3d;
   font-family: "Noto Sans KR";
   font-size: 0.75rem;
@@ -304,12 +303,12 @@ input::-webkit-inner-spin-button {
 ._input_v81jq_1::-webkit-input-placeholder {
   letter-spacing: 0.6992px;
 }
-._container_1p4bv_1 {
+._container_4t5r2_1 {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 1rem;
-  height: 80px;
+  height: 60px;
 }
 ._dropdown_17nuy_1 {
   width: 100%;
@@ -423,12 +422,12 @@ input::-webkit-inner-spin-button {
   font-family: "Noto Sans KR";
   font-size: 0.75rem;
 }
-._form_16gnj_1 {
+._form_1ehtn_1 {
   display: flex;
   flex-direction: column-reverse;
-  gap: 1.5rem;
+  gap: 1.8rem 0;
 }
-._previewCard_obju7_1 {
+._previewCard_1e503_1 {
   margin: 0 auto;
   width: 100%;
   max-width: 24rem;
@@ -436,27 +435,28 @@ input::-webkit-inner-spin-button {
   background-color: #333333;
   padding: 1.25rem 1.5rem;
   border-radius: 4px;
-  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
   display: flex;
   flex-direction: column;
   gap: 2rem;
   box-sizing: border-box;
+  margin-bottom: 4rem;
 }
 
-._previewHeader_obju7_16 {
+._previewHeader_1e503_17 {
   display: flex;
   justify-content: space-between;
   height: 67.5px;
 }
 
-._chip_obju7_22 {
+._chip_1e503_23 {
   width: 3.75rem;
   height: 2.8125rem;
   background-color: #ddcd78;
   border-radius: 4px;
 }
 
-._cardNumber_obju7_29 {
+._cardNumber_1e503_30 {
   color: #fff;
   display: flex;
   align-items: center;
@@ -467,7 +467,7 @@ input::-webkit-inner-spin-button {
   height: 25px;
 }
 
-._cardNumber_obju7_29 > span {
+._cardNumber_1e503_30 > span {
   letter-spacing: 4px;
   width: 65px;
   text-align: center;
@@ -476,7 +476,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
 }
 
-._dots_obju7_49 {
+._dots_1e503_50 {
   display: flex;
   gap: 0.65rem;
   align-items: center;
@@ -484,7 +484,7 @@ input::-webkit-inner-spin-button {
   width: 65px;
 }
 
-._expire_obju7_57 {
+._expire_1e503_58 {
   color: #fff;
   font-size: clamp(18px, 5vw, 25px);
   font-weight: 500;
@@ -493,12 +493,12 @@ input::-webkit-inner-spin-button {
   padding: 0 0.25rem;
 }
 
-._expire_obju7_57 > span {
+._expire_1e503_58 > span {
   display: inline-block;
   width: 30px;
 }
 
-._expire_obju7_57 > span:nth-child(2) {
+._expire_1e503_58 > span:nth-child(2) {
   width: auto;
   padding-right: 0.25rem;
 }

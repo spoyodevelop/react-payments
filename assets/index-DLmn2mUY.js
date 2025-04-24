@@ -14394,10 +14394,10 @@ function CardInputBox({
     InputComponents
   ] });
 }
-const container$5 = "_container_1cm80_1";
-const cardInputs = "_cardInputs_1cm80_9";
-const cardInputBox = "_cardInputBox_1cm80_14";
-const errorMessage$3 = "_errorMessage_1cm80_21";
+const container$5 = "_container_an611_1";
+const cardInputs = "_cardInputs_an611_8";
+const cardInputBox = "_cardInputBox_an611_13";
+const errorMessage$3 = "_errorMessage_an611_20";
 const styles$c = {
   container: container$5,
   cardInputs,
@@ -14526,7 +14526,7 @@ function CardNumberInputs({
     )
   ] });
 }
-const container$4 = "_container_1p4bv_1";
+const container$4 = "_container_4t5r2_1";
 const styles$9 = {
   container: container$4
 };
@@ -14728,35 +14728,17 @@ const STEP_ORDER = [
   "PASSWORD",
   "COMPLETE"
 ];
-const form = "_form_16gnj_1";
+const form = "_form_1ehtn_1";
 const styles$4 = {
   form
 };
-function AddCardForm({
-  addCardState: {
-    cardNumberState,
-    expireDate,
-    CVCState,
-    selectedBrand,
-    passwordState,
-    handleCardNumberChange,
-    handleExpireMonthChange,
-    handleExpireYearChange,
-    handleExpireMonthBlur,
-    handleCVCChange,
-    handlePasswordChange,
-    setSelectedBrand
-  },
-  currentStep,
-  allValid
-}) {
-  const navigate = useNavigate();
-  const currentIndex = STEP_ORDER.indexOf(currentStep);
+function useFocusControl(currentStep, allValid) {
   const brandDropdownRef = reactExports.useRef(null);
   const expireMonthInputRef = reactExports.useRef(null);
   const cvcInputRef = reactExports.useRef(null);
   const passwordInputRef = reactExports.useRef(null);
   const addCardButtonRef = reactExports.useRef(null);
+  const currentIndex = STEP_ORDER.indexOf(currentStep);
   reactExports.useEffect(() => {
     const timeoutId = setTimeout(() => {
       var _a, _b, _c, _d, _e;
@@ -14774,6 +14756,41 @@ function AddCardForm({
     }, 0);
     return () => clearTimeout(timeoutId);
   }, [currentIndex, allValid]);
+  return {
+    brandDropdownRef,
+    expireMonthInputRef,
+    cvcInputRef,
+    passwordInputRef,
+    addCardButtonRef
+  };
+}
+function AddCardForm({
+  addCardState: {
+    cardNumberState,
+    handleCardNumberChange,
+    selectedBrand,
+    setSelectedBrand,
+    expireDate,
+    handleExpireMonthChange,
+    handleExpireYearChange,
+    handleExpireMonthBlur,
+    CVCState,
+    handleCVCChange,
+    passwordState,
+    handlePasswordChange
+  },
+  currentStep,
+  allValid
+}) {
+  const navigate = useNavigate();
+  const currentIndex = STEP_ORDER.indexOf(currentStep);
+  const {
+    brandDropdownRef,
+    expireMonthInputRef,
+    cvcInputRef,
+    passwordInputRef,
+    addCardButtonRef
+  } = useFocusControl(currentStep, allValid);
   function handleAddCardButton() {
     navigate("/AddCardComplete", {
       state: {
@@ -14871,12 +14888,12 @@ function AddCardForm({
     )
   ] });
 }
-const previewCard = "_previewCard_obju7_1";
-const previewHeader = "_previewHeader_obju7_16";
-const chip = "_chip_obju7_22";
-const cardNumber = "_cardNumber_obju7_29";
-const dots = "_dots_obju7_49";
-const expire = "_expire_obju7_57";
+const previewCard = "_previewCard_1e503_1";
+const previewHeader = "_previewHeader_1e503_17";
+const chip = "_chip_1e503_23";
+const cardNumber = "_cardNumber_1e503_30";
+const dots = "_dots_1e503_50";
+const expire = "_expire_1e503_58";
 const styles$3 = {
   previewCard,
   previewHeader,
