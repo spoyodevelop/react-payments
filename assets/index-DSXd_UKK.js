@@ -14426,15 +14426,18 @@ const styles$a = {
   input,
   error
 };
-function Input({ isError, ...props }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    "input",
-    {
-      ...props,
-      className: `${styles$a.input} ${isError ? styles$a.error : ""}`
-    }
-  );
-}
+const Input = reactExports.forwardRef(
+  ({ isError, ...props }, ref) => {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "input",
+      {
+        ref,
+        ...props,
+        className: `${styles$a.input} ${isError ? styles$a.error : ""}`
+      }
+    );
+  }
+);
 const CARD_NUMBER_INPUT_KEYS = [
   "first",
   "second",
@@ -14506,12 +14509,14 @@ const dropdown = "_dropdown_17nuy_1";
 const styles$8 = {
   dropdown
 };
-function Dropdown({ itemList, placeholder, ...props }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("select", { ...props, className: styles$8.dropdown, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", disabled: true, children: placeholder }),
-    itemList.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: item, children: item }, item))
-  ] });
-}
+const Dropdown = reactExports.forwardRef(
+  ({ options, placeholder, ...props }, ref) => {
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("select", { ref, ...props, className: styles$8.dropdown, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", disabled: true, children: placeholder }),
+      options.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: item, children: item }, item))
+    ] });
+  }
+);
 const CARD_BRAND_COLOR = {
   BC카드: "#F04651",
   신한카드: "#0046FF",
@@ -14532,22 +14537,21 @@ const CARD_BRAND = [
   "하나카드",
   "국민카드"
 ];
-function CardBrandDropdown({
-  selectedBrand,
-  setSelectedBrand
-}) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$9.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-    Dropdown,
-    {
-      id: "selected-card-brand",
-      className: styles$9.dropdown,
-      itemList: CARD_BRAND,
-      placeholder: "카드 브랜드를 선택하세요",
-      onChange: (e) => setSelectedBrand(e.target.value),
-      value: selectedBrand ?? ""
-    }
-  ) });
-}
+const CardBrandDropdown = reactExports.forwardRef(
+  ({ selectedBrand, setSelectedBrand }, ref) => {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$9.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Dropdown,
+      {
+        ref,
+        id: "selected-card-brand",
+        value: selectedBrand ?? "",
+        onChange: (e) => setSelectedBrand(e.target.value),
+        options: CARD_BRAND,
+        placeholder: "카드 브랜드를 선택해 주세요"
+      }
+    ) });
+  }
+);
 const container$3 = "_container_1xa0n_1";
 const expireDateInputContainer = "_expireDateInputContainer_1xa0n_9";
 const expireDateInputBox = "_expireDateInputBox_1xa0n_14";
@@ -14570,41 +14574,53 @@ const INITIAL_EXPIRE_DATE_STATE = {
 };
 const EXPIRE_DATE_KEYS = ["MM", "YY"];
 const EXPIRE_DATE_LENGTH = 2;
-function CardExpireDateInputs({
-  expireDate,
-  handleExpireMonthChange,
-  handleExpireYearChange,
-  handleExpireMonthBlur
-}) {
-  const changeEvent = {
-    MM: handleExpireMonthChange,
-    YY: handleExpireYearChange
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$7.expireDateInputBox, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: `expire-${expireKey}-input`, isHidden: idx !== 0, children: "유효 기간" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Input,
-      {
-        id: `expire-${expireKey}-input`,
-        type: "text",
-        maxLength: EXPIRE_DATE_LENGTH,
-        placeholder: expireKey,
-        isError: Boolean(expireDate[expireKey].errorMessage),
-        value: expireDate[expireKey].value,
-        onChange: (e) => changeEvent[expireKey](e.target.value),
-        onBlur: expireKey === "MM" ? (e) => handleExpireMonthBlur(e.target.value) : void 0
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "span",
-      {
-        id: `${expireKey}-error-message`,
-        className: styles$7.errorMessage,
-        children: expireDate[expireKey].errorMessage
-      }
-    )
-  ] }, expireKey)) }) });
-}
+const CardExpireDateInputs = reactExports.forwardRef(
+  ({
+    expireDate,
+    handleExpireMonthChange,
+    handleExpireYearChange,
+    handleExpireMonthBlur
+  }, ref) => {
+    const changeEvent = {
+      MM: handleExpireMonthChange,
+      YY: handleExpireYearChange
+    };
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey, idx) => {
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$7.expireDateInputBox, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Label,
+          {
+            htmlFor: `expire-${expireKey}-input`,
+            isHidden: idx !== 0,
+            children: "유효 기간"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Input,
+          {
+            ref: idx === 0 ? ref : void 0,
+            id: `expire-${expireKey}-input`,
+            type: "text",
+            maxLength: EXPIRE_DATE_LENGTH,
+            placeholder: expireKey,
+            isError: Boolean(expireDate[expireKey].errorMessage),
+            value: expireDate[expireKey].value,
+            onChange: (e) => changeEvent[expireKey](e.target.value),
+            onBlur: idx === 0 ? (e) => handleExpireMonthBlur(e.target.value) : void 0
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "span",
+          {
+            id: `${expireKey}-error-message`,
+            className: styles$7.errorMessage,
+            children: expireDate[expireKey].errorMessage
+          }
+        )
+      ] }, expireKey);
+    }) }) });
+  }
+);
 const container$2 = "_container_1sop9_1";
 const cvcInputs = "_cvcInputs_1sop9_9";
 const errorMessage$1 = "_errorMessage_1sop9_14";
@@ -14618,24 +14634,27 @@ const EXPIRE_DATE_ERROR_MESSAGE = {
   INVALID_NUMBER: "숫자만 입력 가능합니다.",
   INVALID_CVC_LENGTH: "CVC는 3자리의 숫자만 입력 가능합니다."
 };
-function CVCInputs({ CVCState, handleCVCChange }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.container, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "cvc-input", children: "CVC" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$6.cvcInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Input,
-      {
-        id: "cvc-input",
-        type: "text",
-        maxLength: CVC_INPUT_LENGTH,
-        placeholder: "123",
-        isError: Boolean(CVCState.errorMessage),
-        value: CVCState.value,
-        onChange: (e) => handleCVCChange(e.target.value)
-      }
-    ) }),
-    CVCState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$6.errorMessage, children: CVCState.errorMessage })
-  ] });
-}
+const CVCInputs = reactExports.forwardRef(
+  ({ CVCState, handleCVCChange }, ref) => {
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.container, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "cvc-input", children: "CVC" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$6.cvcInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Input,
+        {
+          ref,
+          id: "cvc-input",
+          type: "text",
+          maxLength: CVC_INPUT_LENGTH,
+          placeholder: "123",
+          isError: Boolean(CVCState.errorMessage),
+          value: CVCState.value,
+          onChange: (e) => handleCVCChange(e.target.value)
+        }
+      ) }),
+      CVCState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$6.errorMessage, children: CVCState.errorMessage })
+    ] });
+  }
+);
 const container$1 = "_container_s5ckw_1";
 const passwordInputs = "_passwordInputs_s5ckw_9";
 const errorMessage = "_errorMessage_s5ckw_14";
@@ -14649,27 +14668,27 @@ const PASSWORD_ERROR_MESSAGE = {
   INVALID_NUMBER: "숫자만 입력 가능합니다.",
   INVALID_PASSWORD_LENGTH: "비밀번호는 앞 2자리의 숫자만 입력 가능합니다."
 };
-function PasswordInputs({
-  passwordState,
-  handlePasswordChange
-}) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$5.container, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "cvc-input", children: "비밀번호 앞 2자리" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$5.passwordInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Input,
-      {
-        id: "password-input",
-        type: "text",
-        maxLength: PASSWORD_INPUT_LENGTH,
-        placeholder: "**",
-        isError: Boolean(passwordState.errorMessage),
-        value: passwordState.value,
-        onChange: (e) => handlePasswordChange(e.target.value)
-      }
-    ) }),
-    passwordState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$5.errorMessage, children: passwordState.errorMessage })
-  ] });
-}
+const PasswordInputs = reactExports.forwardRef(
+  ({ passwordState, handlePasswordChange }, ref) => {
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$5.container, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "password-input", children: "비밀번호" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$5.passwordInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Input,
+        {
+          ref,
+          id: "password-input",
+          type: "password",
+          maxLength: PASSWORD_INPUT_LENGTH,
+          placeholder: "**",
+          isError: Boolean(passwordState.errorMessage),
+          value: passwordState.value,
+          onChange: (e) => handlePasswordChange(e.target.value)
+        }
+      ) }),
+      passwordState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$5.errorMessage, children: passwordState.errorMessage })
+    ] });
+  }
+);
 const STEP_ORDER = [
   "CARD_NUMBER",
   "CARD_BRAND",
@@ -14702,6 +14721,28 @@ function AddCardForm({
 }) {
   const navigate = useNavigate();
   const currentIndex = STEP_ORDER.indexOf(currentStep);
+  const brandDropdownRef = reactExports.useRef(null);
+  const expireMonthInputRef = reactExports.useRef(null);
+  const cvcInputRef = reactExports.useRef(null);
+  const passwordInputRef = reactExports.useRef(null);
+  const addCardButtonRef = reactExports.useRef(null);
+  reactExports.useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      var _a, _b, _c, _d, _e;
+      if (currentIndex === 1) {
+        (_a = brandDropdownRef.current) == null ? void 0 : _a.focus();
+      } else if (currentIndex === 2) {
+        (_b = expireMonthInputRef.current) == null ? void 0 : _b.focus();
+      } else if (currentIndex === 3) {
+        (_c = cvcInputRef.current) == null ? void 0 : _c.focus();
+      } else if (currentIndex === 4) {
+        (_d = passwordInputRef.current) == null ? void 0 : _d.focus();
+      } else if (allValid) {
+        (_e = addCardButtonRef.current) == null ? void 0 : _e.focus();
+      }
+    }, 0);
+    return () => clearTimeout(timeoutId);
+  }, [currentIndex, allValid]);
   function handleAddCardButton() {
     navigate("/AddCardComplete", {
       state: {
@@ -14733,6 +14774,7 @@ function AddCardForm({
         InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
           CardBrandDropdown,
           {
+            ref: brandDropdownRef,
             selectedBrand,
             setSelectedBrand
           }
@@ -14747,6 +14789,7 @@ function AddCardForm({
         InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
           CardExpireDateInputs,
           {
+            ref: expireMonthInputRef,
             expireDate,
             handleExpireMonthChange,
             handleExpireYearChange,
@@ -14759,7 +14802,14 @@ function AddCardForm({
       CardInputBox,
       {
         title: "CVC 번호를 입력해 주세요",
-        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(CVCInputs, { CVCState, handleCVCChange })
+        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CVCInputs,
+          {
+            ref: cvcInputRef,
+            CVCState,
+            handleCVCChange
+          }
+        )
       }
     ),
     currentIndex >= 4 && /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -14769,6 +14819,7 @@ function AddCardForm({
         InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
           PasswordInputs,
           {
+            ref: passwordInputRef,
             passwordState,
             handlePasswordChange
           }
@@ -14778,6 +14829,7 @@ function AddCardForm({
     allValid && /* @__PURE__ */ jsxRuntimeExports.jsx(
       Button,
       {
+        ref: addCardButtonRef,
         variant: "default",
         size: "large",
         fullWidth: true,
