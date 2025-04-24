@@ -14961,7 +14961,7 @@ function AddCardForm({
   const navigate = useNavigate();
   const currentIndex = STEP_ORDER.indexOf(currentStep);
   function handleAddCardButton() {
-    navigate("/AddCardConfirm", {
+    navigate("/AddCardComplete", {
       state: {
         firstCardNumber: cardNumberState["first"].value,
         selectedBrand
@@ -15186,7 +15186,7 @@ const RoundCheckIcon = ({ size = "md" }) => {
     }
   ) });
 };
-function AddCardConfirmModal() {
+function AddCardCompleteModal() {
   const location = useLocation();
   const navigate = useNavigate();
   const { firstCardNumber, selectedBrand } = location.state || {};
@@ -15220,9 +15220,9 @@ function AddCardConfirmModal() {
 function App() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/", element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCard, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/AddCardConfirm", element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCardConfirmModal, {}) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/AddCardComplete", element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCardCompleteModal, {}) })
   ] });
 }
 ReactDOM.createRoot(document.getElementById("root")).render(
-  /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) }) })
+  /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { basename: "/react-payments", children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) }) })
 );
