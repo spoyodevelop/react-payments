@@ -12261,16 +12261,6 @@ function requireDist() {
   return dist;
 }
 requireDist();
-/**
- * react-router v7.5.1
- *
- * Copyright (c) Remix Software Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.md file in the root directory of this source tree.
- *
- * @license MIT
- */
 var PopStateEventType = "popstate";
 function createHashHistory(options = {}) {
   function createHashLocation(window2, globalHistory) {
@@ -13970,7 +13960,7 @@ function mergeRefs(...refs) {
 var isBrowser = typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined";
 try {
   if (isBrowser) {
-    window.__reactRouterVersion = "7.5.1";
+    window.__reactRouterVersion = "7.5.2";
   }
 } catch (e) {
 }
@@ -14351,16 +14341,16 @@ function clsx() {
   for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r(e)) && (n && (n += " "), n += t);
   return n;
 }
-const button = "_button_107ui_1";
-const rounded = "_rounded_107ui_31";
-const small$1 = "_small_107ui_35";
-const medium$1 = "_medium_107ui_40";
-const large$1 = "_large_107ui_45";
-const fullWidth = "_fullWidth_107ui_50";
-const fixed = "_fixed_107ui_54";
+const button = "_button_12qni_1";
+const rounded = "_rounded_12qni_33";
+const small$1 = "_small_12qni_37";
+const medium$1 = "_medium_12qni_42";
+const large$1 = "_large_12qni_47";
+const fullWidth = "_fullWidth_12qni_52";
+const fixed = "_fixed_12qni_56";
 const styles$f = {
   button,
-  "default": "_default_107ui_27",
+  "default": "_default_12qni_29",
   rounded,
   small: small$1,
   medium: medium$1,
@@ -14377,7 +14367,7 @@ function Button({
   className = "",
   ...props
 }) {
-  const shouldBeFixed = fixed2 || variant === "default" && fixed2 !== false;
+  const shouldBeFixed = fixed2 || variant === "default";
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "button",
     {
@@ -14433,7 +14423,7 @@ const INITIAL_CARD_NUMBER_STATE = {
   third: { value: "", errorMessage: "" },
   fourth: { value: "", errorMessage: "" }
 };
-const EXPIRE_DATE_ERROR_MESSAGE$2 = {
+const CARD_NUMBER_ERROR_MESSAGE = {
   INVALID_NUMBER: "숫자만 입력 가능합니다.",
   INVALID_CARD_LENGTH: "4자리의 숫자만 입력 가능합니다."
 };
@@ -14526,7 +14516,8 @@ const CardNumberInputs = reactExports.forwardRef(
             isError: Boolean(cardNumberState[inputKey].errorMessage),
             value: cardNumberState[inputKey].value,
             onChange: (e) => handleInputChange(inputKey, e.target.value),
-            ref: idx === 0 ? ref : inputRefs[inputKey]
+            ref: idx === 0 ? ref : inputRefs[inputKey],
+            "aria-describedby": latestErrorMessage ? "card-number-error-message" : void 0
           }
         )
       ] }, inputKey)) }),
@@ -14604,7 +14595,7 @@ const styles$8 = {
   expireDateInputBox,
   errorMessage: errorMessage$3
 };
-const EXPIRE_DATE_ERROR_MESSAGE$1 = {
+const EXPIRE_DATE_ERROR_MESSAGE = {
   INVALID_NUMBER: "숫자만 입력 가능합니다.",
   INVALID_YEAR_LENGTH: "년도는 2자리만 입력 가능합니다.",
   INVALID_MONTH_LENGTH: "월은 최소 1자 ~ 최대 2자까지만 입력 가능합니다.",
@@ -14678,7 +14669,7 @@ const styles$7 = {
   errorMessage: errorMessage$2
 };
 const CVC_INPUT_LENGTH = 3;
-const EXPIRE_DATE_ERROR_MESSAGE = {
+const CVC_ERROR_MESSAGE = {
   INVALID_NUMBER: "숫자만 입력 가능합니다.",
   INVALID_CVC_LENGTH: "CVC는 3자리의 숫자만 입력 가능합니다."
 };
@@ -14813,95 +14804,104 @@ function AddCardForm({
       }
     });
   }
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { className: styles$5.form, onSubmit: (e) => e.preventDefault(), children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CardInputBox,
-      {
-        title: "결제할 카드 번호를 입력해 주세요",
-        guideText: "본인 명의의 카드만 결제 가능합니다.",
-        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CardNumberInputs,
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "form",
+    {
+      className: styles$5.form,
+      onSubmit: (e) => e.preventDefault(),
+      "aria-label": "카드 등록 양식",
+      role: "form",
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CardInputBox,
           {
-            ref: firstCardNumberInputRef,
-            cardNumberState,
-            handleCardNumberChange
+            title: "결제할 카드 번호를 입력해 주세요",
+            guideText: "본인 명의의 카드만 결제 가능합니다.",
+            InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              CardNumberInputs,
+              {
+                ref: firstCardNumberInputRef,
+                cardNumberState,
+                handleCardNumberChange
+              }
+            )
+          }
+        ),
+        currentIndex >= 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CardInputBox,
+          {
+            title: "카드사를 선택해 주세요",
+            guideText: "현재 국내 카드사만 지원합니다.",
+            InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              CardBrandDropdown,
+              {
+                ref: brandDropdownRef,
+                selectedBrand,
+                setSelectedBrand
+              }
+            )
+          }
+        ),
+        currentIndex >= 2 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CardInputBox,
+          {
+            title: "카드 유효기간을 입력해 주세요",
+            guideText: "월/년도(MMYY)를 순서대로 입력해 주세요.",
+            InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              CardExpireDateInputs,
+              {
+                ref: expireMonthInputRef,
+                expireDate,
+                handleExpireMonthChange,
+                handleExpireYearChange,
+                handleExpireMonthBlur
+              }
+            )
+          }
+        ),
+        currentIndex >= 3 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CardInputBox,
+          {
+            title: "CVC 번호를 입력해 주세요",
+            InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              CVCInputs,
+              {
+                ref: cvcInputRef,
+                CVCState,
+                handleCVCChange
+              }
+            )
+          }
+        ),
+        currentIndex >= 4 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CardInputBox,
+          {
+            title: "비밀번호를 입력해주세요",
+            InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              PasswordInputs,
+              {
+                ref: passwordInputRef,
+                passwordState,
+                handlePasswordChange
+              }
+            )
+          }
+        ),
+        allValid && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Button,
+          {
+            ref: addCardButtonRef,
+            variant: "default",
+            size: "large",
+            fullWidth: true,
+            fixed: true,
+            onClick: handleAddCardButton,
+            children: "확인"
           }
         )
-      }
-    ),
-    currentIndex >= 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CardInputBox,
-      {
-        title: "카드사를 선택해 주세요",
-        guideText: "현재 국내 카드사만 지원합니다.",
-        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CardBrandDropdown,
-          {
-            ref: brandDropdownRef,
-            selectedBrand,
-            setSelectedBrand
-          }
-        )
-      }
-    ),
-    currentIndex >= 2 && /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CardInputBox,
-      {
-        title: "카드 유효기간을 입력해 주세요",
-        guideText: "월/년도(MMYY)를 순서대로 입력해 주세요.",
-        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CardExpireDateInputs,
-          {
-            ref: expireMonthInputRef,
-            expireDate,
-            handleExpireMonthChange,
-            handleExpireYearChange,
-            handleExpireMonthBlur
-          }
-        )
-      }
-    ),
-    currentIndex >= 3 && /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CardInputBox,
-      {
-        title: "CVC 번호를 입력해 주세요",
-        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CVCInputs,
-          {
-            ref: cvcInputRef,
-            CVCState,
-            handleCVCChange
-          }
-        )
-      }
-    ),
-    currentIndex >= 4 && /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CardInputBox,
-      {
-        title: "비밀번호를 입력해주세요",
-        InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          PasswordInputs,
-          {
-            ref: passwordInputRef,
-            passwordState,
-            handlePasswordChange
-          }
-        )
-      }
-    ),
-    allValid && /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Button,
-      {
-        ref: addCardButtonRef,
-        variant: "default",
-        size: "large",
-        fullWidth: true,
-        fixed: true,
-        onClick: handleAddCardButton,
-        children: "확인"
-      }
-    )
-  ] });
+      ]
+    }
+  );
 }
 const previewCard = "_previewCard_1e503_1";
 const previewHeader = "_previewHeader_1e503_17";
@@ -15010,8 +15010,8 @@ const ProgressBar = ({
   allValid,
   stepLabels
 }) => {
-  const currentStepNumber = STEP_ORDER_INDEX[currentStep] || 1;
-  const showError = currentStep === "COMPLETE" && allValid === false;
+  const currentStepNumber = STEP_ORDER_INDEX[currentStep] ?? 1;
+  const showValidationError = currentStep === "COMPLETE" && !allValid;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.progressBarContainer, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.stepsIndicator, children: stepLabels.map((label2, index) => {
       const stepNumber = index + 1;
@@ -15021,9 +15021,12 @@ const ProgressBar = ({
           className: clsx(
             styles$2.step,
             stepNumber <= currentStepNumber && styles$2.active,
-            showError && styles$2.error
+            showValidationError && styles$2.error
           ),
           "aria-label": `Step ${stepNumber}: ${label2}`,
+          role: "region",
+          "aria-current": stepNumber === currentStepNumber ? "step" : void 0,
+          "aria-selected": stepNumber <= currentStepNumber,
           children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.stepCircle, children: stepNumber }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.stepBar, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -15032,32 +15035,33 @@ const ProgressBar = ({
                 className: clsx(
                   styles$2.stepBarFill,
                   stepNumber <= currentStepNumber && styles$2.active,
-                  showError && styles$2.error
+                  showValidationError && styles$2.error
                 ),
                 style: {
                   width: stepNumber <= currentStepNumber ? "100%" : "0%"
-                }
+                },
+                "aria-hidden": "true"
               }
             ) }),
-            !showError && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.stepLabel, children: label2 })
+            !showValidationError && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.stepLabel, children: label2 })
           ]
         },
         stepNumber
       );
     }) }),
-    showError && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$2.errorMessage, children: "입력값이 유효하지 않으니 다시 입력해주세요!" })
+    showValidationError && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$2.errorMessage, children: "입력값이 유효하지 않으니 다시 입력해주세요!" })
   ] });
 };
-const isNaN$1 = (value) => {
+const isNumericNaN = (value) => {
   return typeof value === "number" && Number.isNaN(value);
 };
 const validateCardNumber = (cardNumber2) => {
   if (Number.isNaN(Number(cardNumber2))) {
-    return EXPIRE_DATE_ERROR_MESSAGE$2.INVALID_NUMBER;
+    return CARD_NUMBER_ERROR_MESSAGE.INVALID_NUMBER;
   }
-  const isInvalidLength = cardNumber2.length === 0 || cardNumber2.length === CARD_NUMBER_LENGTH;
-  if (!isInvalidLength) {
-    return EXPIRE_DATE_ERROR_MESSAGE$2.INVALID_CARD_LENGTH;
+  const isValidLength = cardNumber2.length === 0 || cardNumber2.length === CARD_NUMBER_LENGTH;
+  if (!isValidLength) {
+    return CARD_NUMBER_ERROR_MESSAGE.INVALID_CARD_LENGTH;
   }
   return "";
 };
@@ -15071,21 +15075,12 @@ const useControlledCardNumber = () => {
         return;
       }
       const numeric = Number(value);
-      if (isNaN$1(numeric)) {
-        setCardNumberState((prev) => ({
-          ...prev,
-          [key]: {
-            ...prev[key],
-            errorMessage: validateCardNumber(value)
-          }
-        }));
-        return;
-      }
+      const errorMessage2 = validateCardNumber(value);
       setCardNumberState((prev) => ({
         ...prev,
         [key]: {
-          value,
-          errorMessage: validateCardNumber(value)
+          value: isNumericNaN(numeric) ? prev[key].value : value,
+          errorMessage: errorMessage2
         }
       }));
     },
@@ -15098,14 +15093,14 @@ const isValidMonth = (month) => {
 };
 const validateMonth = (month) => {
   if (Number.isNaN(Number(month))) {
-    return EXPIRE_DATE_ERROR_MESSAGE$1.INVALID_NUMBER;
+    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_NUMBER;
   }
   if (!isValidMonth(Number(month))) {
-    return EXPIRE_DATE_ERROR_MESSAGE$1.INVALID_MONTH_RANGE;
+    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_MONTH_RANGE;
   }
-  const isInvalidLength = month.length === 0 || month.length === EXPIRE_DATE_LENGTH;
-  if (!isInvalidLength) {
-    return EXPIRE_DATE_ERROR_MESSAGE$1.INVALID_MONTH_LENGTH;
+  const isValidLength = month.length === 0 || month.length === EXPIRE_DATE_LENGTH;
+  if (!isValidLength) {
+    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_MONTH_LENGTH;
   }
   return "";
 };
@@ -15114,10 +15109,10 @@ const isValidYear = (year) => {
 };
 const validateYear = (year) => {
   if (Number.isNaN(Number(year))) {
-    return EXPIRE_DATE_ERROR_MESSAGE$1.INVALID_NUMBER;
+    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_NUMBER;
   }
   if (!isValidYear(year)) {
-    return EXPIRE_DATE_ERROR_MESSAGE$1.INVALID_YEAR_LENGTH;
+    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_YEAR_LENGTH;
   }
   return "";
 };
@@ -15130,7 +15125,7 @@ const useControlledExpireDate = () => {
       return;
     }
     const numeric = Number(value);
-    if (Number.isNaN(numeric)) {
+    if (isNumericNaN(numeric)) {
       setExpireDate((prevState) => ({
         ...prevState,
         MM: {
@@ -15167,7 +15162,7 @@ const useControlledExpireDate = () => {
       return;
     }
     const numeric = Number(value);
-    if (Number.isNaN(numeric)) {
+    if (isNumericNaN(numeric)) {
       setExpireDate((prevState) => ({
         ...prevState,
         YY: {
@@ -15194,11 +15189,11 @@ const useControlledExpireDate = () => {
 };
 const validateCVCNumber = (CVCNumber) => {
   if (Number.isNaN(Number(CVCNumber))) {
-    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_NUMBER;
+    return CVC_ERROR_MESSAGE.INVALID_NUMBER;
   }
   const isInvalidLength = CVCNumber.length === 0 || CVCNumber.length === 3;
   if (!isInvalidLength) {
-    return EXPIRE_DATE_ERROR_MESSAGE.INVALID_CVC_LENGTH;
+    return CVC_ERROR_MESSAGE.INVALID_CVC_LENGTH;
   }
   return "";
 };
@@ -15212,7 +15207,7 @@ const useControlledCVC = () => {
       return;
     }
     const numeric = Number(value);
-    if (Number.isNaN(numeric)) {
+    if (isNumericNaN(numeric)) {
       setCVCState((prevState) => ({
         ...prevState,
         errorMessage: validateCVCNumber(value)
@@ -15231,11 +15226,11 @@ const useControlledSelectedCardBrand = () => {
   return { selectedBrand, setSelectedBrand };
 };
 const validatePassword = (passwordNumber) => {
-  if (Number.isNaN(Number(passwordNumber))) {
+  if (isNumericNaN(Number(passwordNumber))) {
     return PASSWORD_ERROR_MESSAGE.INVALID_NUMBER;
   }
-  const isInvalidLength = passwordNumber.length === 0 || passwordNumber.length === PASSWORD_INPUT_LENGTH;
-  if (!isInvalidLength) {
+  const isValidLength = passwordNumber.length === 0 || passwordNumber.length === PASSWORD_INPUT_LENGTH;
+  if (!isValidLength) {
     return PASSWORD_ERROR_MESSAGE.INVALID_PASSWORD_LENGTH;
   }
   return "";
@@ -15250,7 +15245,7 @@ const useControlledPassword = () => {
       return;
     }
     const numeric = Number(value);
-    if (Number.isNaN(numeric)) {
+    if (isNumericNaN(numeric)) {
       setPasswordState((prevState) => ({
         ...prevState,
         errorMessage: validatePassword(value)
@@ -15280,15 +15275,11 @@ const validators = [
 const useStepValidation = (slices, dependencies) => {
   const maxReachedStep = reactExports.useRef(0);
   return reactExports.useMemo(() => {
-    let validAll = true;
     let currentValidStep = 0;
+    let allValid = true;
     for (let i = 0; i < validators.length; i++) {
-      if (validators[i](slices)) {
-        currentValidStep = i + 1;
-      } else {
-        validAll = i >= validators.length - 1;
-        break;
-      }
+      if (validators[i](slices)) currentValidStep = i + 1;
+      else allValid = false;
     }
     if (currentValidStep > maxReachedStep.current) {
       maxReachedStep.current = currentValidStep;
@@ -15296,7 +15287,7 @@ const useStepValidation = (slices, dependencies) => {
     const stepIndex = Math.min(maxReachedStep.current, STEP_ORDER.length - 1);
     return {
       currentStep: STEP_ORDER[stepIndex],
-      allValid: validAll && currentValidStep >= validators.length
+      allValid: allValid && currentValidStep >= validators.length
     };
   }, dependencies);
 };
@@ -15386,52 +15377,94 @@ const styles = {
   medium,
   large
 };
-const RoundCheckIcon = ({ size = "md" }) => {
+const RoundCheckIcon = ({ size = "medium" }) => {
   const containerClassName = clsx(styles.roundCheckIcon, styles[size]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: containerClassName, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-    "svg",
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "div",
     {
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "currentColor",
-      strokeWidth: "4",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      className: styles.checkMark,
-      children: /* @__PURE__ */ jsxRuntimeExports.jsx("polyline", { points: "20 6 9 17 4 12" })
+      className: containerClassName,
+      role: "img",
+      "aria-label": "Success check mark",
+      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "svg",
+        {
+          viewBox: "0 0 24 24",
+          fill: "none",
+          stroke: "currentColor",
+          strokeWidth: "4",
+          strokeLinecap: "round",
+          strokeLinejoin: "round",
+          className: styles.checkMark,
+          "aria-hidden": "true",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("title", { children: "Check mark" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("polyline", { points: "20 6 9 17 4 12" })
+          ]
+        }
+      )
     }
-  ) });
+  );
 };
 function AddCardCompleteModal() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { firstCardNumber, selectedBrand } = location.state || {};
+  const { firstCardNumber = "****", selectedBrand = "현대카드" } = location.state || {};
   function handleAddCardConfirmButton() {
     navigate("/");
   }
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$1.container, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$1.description, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(RoundCheckIcon, { size: "large" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$1.details, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: styles$1.detailsSpan, children: [
-        firstCardNumber,
-        "로 시작하는"
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: styles$1.detailsSpan, children: [
-        selectedBrand === "카카오뱅크" ? selectedBrand + " 카드" : selectedBrand,
-        "가 등록되었어요!"
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Button,
-      {
-        size: "large",
-        onClick: handleAddCardConfirmButton,
-        variant: "rounded",
-        fullWidth: true,
-        children: "확인"
-      }
-    )
-  ] }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "div",
+    {
+      className: styles$1.container,
+      role: "dialog",
+      "aria-labelledby": "card-complete-title",
+      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: styles$1.description,
+          "aria-describedby": "card-complete-description",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(RoundCheckIcon, { size: "large" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { id: "card-complete-title", className: styles$1.details, children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "span",
+                {
+                  id: "card-complete-number-description",
+                  className: styles$1.detailsSpan,
+                  children: [
+                    firstCardNumber,
+                    "로 시작하는"
+                  ]
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "span",
+                {
+                  id: "card-complete-brand-description",
+                  className: styles$1.detailsSpan,
+                  children: [
+                    selectedBrand === "카카오뱅크" ? selectedBrand + " 카드" : selectedBrand,
+                    "가 등록되었어요!"
+                  ]
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Button,
+              {
+                size: "large",
+                onClick: handleAddCardConfirmButton,
+                variant: "rounded",
+                fullWidth: true,
+                "aria-label": "확인 및 홈으로 이동",
+                children: "확인"
+              }
+            )
+          ]
+        }
+      )
+    }
+  );
 }
 function App() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
