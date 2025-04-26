@@ -15438,11 +15438,11 @@ function AddCardCompleteModal() {
   );
 }
 function App() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { basename: "/react-payments", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { index: true, element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCard, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "AddCardComplete", element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCardCompleteModal, {}) })
-  ] });
+  ] }) });
 }
 ReactDOM.createRoot(document.getElementById("root")).render(
-  /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { basename: "/react-payments", children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) }) })
+  /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
 );
