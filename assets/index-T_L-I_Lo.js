@@ -12080,7 +12080,7 @@ function requireClient() {
 }
 var clientExports = requireClient();
 const ReactDOM = /* @__PURE__ */ getDefaultExportFromCjs(clientExports);
-const container$6 = "_container_22xzz_1";
+const container$6 = "_container_na73w_1";
 const styles$g = {
   container: container$6
 };
@@ -14703,9 +14703,13 @@ const PasswordInputs = ({
     passwordState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$6.errorMessage, children: passwordState.errorMessage })
   ] });
 };
-const form = "_form_1ehtn_1";
+const form = "_form_10rxb_1";
+const inputsContainer = "_inputsContainer_10rxb_8";
+const buttonWrapper = "_buttonWrapper_10rxb_14";
 const styles$5 = {
-  form
+  form,
+  inputsContainer,
+  buttonWrapper
 };
 function useFocusControl(currentStep, allValid) {
   const firstCardNumberInputRef = reactExports.useRef(null);
@@ -14787,93 +14791,94 @@ function AddCardForm({
       "aria-label": "카드 등록 양식",
       role: "form",
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CardInputBox,
-          {
-            title: "결제할 카드 번호를 입력해 주세요",
-            guideText: "본인 명의의 카드만 결제 가능합니다.",
-            InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
-              CardNumberInputs,
-              {
-                ref: firstCardNumberInputRef,
-                cardNumberState,
-                handleCardNumberChange
-              }
-            )
-          }
-        ),
-        currentIndex >= 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CardInputBox,
-          {
-            title: "카드사를 선택해 주세요",
-            guideText: "현재 국내 카드사만 지원합니다.",
-            InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
-              CardBrandDropdown,
-              {
-                ref: brandDropdownRef,
-                selectedBrand,
-                setSelectedBrand
-              }
-            )
-          }
-        ),
-        currentIndex >= 2 && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CardInputBox,
-          {
-            title: "카드 유효기간을 입력해 주세요",
-            guideText: "월/년도(MMYY)를 순서대로 입력해 주세요.",
-            InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
-              CardExpireDateInputs,
-              {
-                ref: expireMonthInputRef,
-                expireDate,
-                handleExpireMonthChange,
-                handleExpireYearChange,
-                handleExpireMonthBlur
-              }
-            )
-          }
-        ),
-        currentIndex >= 3 && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CardInputBox,
-          {
-            title: "CVC 번호를 입력해 주세요",
-            InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
-              CVCInputs,
-              {
-                ref: cvcInputRef,
-                CVCState,
-                handleCVCChange
-              }
-            )
-          }
-        ),
-        currentIndex >= 4 && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          CardInputBox,
-          {
-            title: "비밀번호를 입력해주세요",
-            InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
-              PasswordInputs,
-              {
-                ref: passwordInputRef,
-                passwordState,
-                handlePasswordChange
-              }
-            )
-          }
-        ),
-        allValid && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$5.inputsContainer, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CardInputBox,
+            {
+              title: "결제할 카드 번호를 입력해 주세요",
+              guideText: "본인 명의의 카드만 결제 가능합니다.",
+              InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                CardNumberInputs,
+                {
+                  ref: firstCardNumberInputRef,
+                  cardNumberState,
+                  handleCardNumberChange
+                }
+              )
+            }
+          ),
+          currentIndex >= 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CardInputBox,
+            {
+              title: "카드사를 선택해 주세요",
+              guideText: "현재 국내 카드사만 지원합니다.",
+              InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                CardBrandDropdown,
+                {
+                  ref: brandDropdownRef,
+                  selectedBrand,
+                  setSelectedBrand
+                }
+              )
+            }
+          ),
+          currentIndex >= 2 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CardInputBox,
+            {
+              title: "카드 유효기간을 입력해 주세요",
+              guideText: "월/년도(MMYY)를 순서대로 입력해 주세요.",
+              InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                CardExpireDateInputs,
+                {
+                  ref: expireMonthInputRef,
+                  expireDate,
+                  handleExpireMonthChange,
+                  handleExpireYearChange,
+                  handleExpireMonthBlur
+                }
+              )
+            }
+          ),
+          currentIndex >= 3 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CardInputBox,
+            {
+              title: "CVC 번호를 입력해 주세요",
+              InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                CVCInputs,
+                {
+                  ref: cvcInputRef,
+                  CVCState,
+                  handleCVCChange
+                }
+              )
+            }
+          ),
+          currentIndex >= 4 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CardInputBox,
+            {
+              title: "비밀번호를 입력해주세요",
+              InputComponents: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                PasswordInputs,
+                {
+                  ref: passwordInputRef,
+                  passwordState,
+                  handlePasswordChange
+                }
+              )
+            }
+          )
+        ] }),
+        allValid && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$5.buttonWrapper, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           Button,
           {
             ref: addCardButtonRef,
             variant: "default",
             size: "large",
             fullWidth: true,
-            fixed: true,
             onClick: handleAddCardButton,
             children: "확인"
           }
-        )
+        ) })
       ]
     }
   );
