@@ -558,7 +558,7 @@ input::-webkit-inner-spin-button {
   border-radius: 50%;
   background-color: #fff;
 }
-._progressBarContainer_16mgg_1 {
+._progressBarContainer_yxnz5_1 {
   width: 80%;
   max-width: 600px;
   padding: 20px 0;
@@ -566,7 +566,7 @@ input::-webkit-inner-spin-button {
   margin-bottom: 10px;
 }
 
-._stepsIndicator_16mgg_9 {
+._stepsIndicator_yxnz5_9 {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -574,7 +574,7 @@ input::-webkit-inner-spin-button {
   width: 100%;
 }
 
-._step_16mgg_9 {
+._step_yxnz5_9 {
   position: relative;
   display: flex;
   align-items: center;
@@ -583,11 +583,11 @@ input::-webkit-inner-spin-button {
   text-align: center;
 }
 
-._step_16mgg_9:last-child ._stepBar_16mgg_26 {
+._step_yxnz5_9:last-child ._stepBar_yxnz5_26 {
   display: none;
 }
 
-._stepCircle_16mgg_30 {
+._stepCircle_yxnz5_30 {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -605,19 +605,19 @@ input::-webkit-inner-spin-button {
   margin-bottom: 8px;
 }
 
-._step_16mgg_9._active_16mgg_48 ._stepCircle_16mgg_30 {
+._step_yxnz5_9._active_yxnz5_48 ._stepCircle_yxnz5_30 {
   background-color: #2563eb;
   color: white;
   box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
 }
 
-._step_16mgg_9._error_16mgg_54 ._stepCircle_16mgg_30 {
+._step_yxnz5_9._error_yxnz5_54 ._stepCircle_yxnz5_30 {
   background-color: #ef4444;
   color: white;
   box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
 }
 
-._stepBar_16mgg_26 {
+._stepBar_yxnz5_26 {
   height: 4px;
   background-color: #f0f0f0;
   position: absolute;
@@ -627,7 +627,7 @@ input::-webkit-inner-spin-button {
   z-index: 1;
 }
 
-._stepBarFill_16mgg_70 {
+._stepBarFill_yxnz5_70 {
   position: absolute;
   height: 100%;
   width: 0%;
@@ -635,16 +635,20 @@ input::-webkit-inner-spin-button {
   transition: width 0.4s ease, background-color 0.3s ease;
 }
 
-._stepBarFill_16mgg_70._active_16mgg_48 {
+._stepBarFill_yxnz5_70._active_yxnz5_48 {
   width: 100%;
   background-color: #2563eb;
 }
 
-._stepBarFill_16mgg_70._error_16mgg_54 {
+._stepBarFill_yxnz5_70._error_yxnz5_54 {
   background-color: #ef4444;
 }
 
-._stepLabel_16mgg_87 {
+._stepBarFill_yxnz5_70._completed_yxnz5_87 {
+  width: 100%;
+}
+
+._stepLabel_yxnz5_91 {
   font-size: 12px;
   color: #888;
   margin-top: 4px;
@@ -654,7 +658,7 @@ input::-webkit-inner-spin-button {
   max-width: 100%;
 }
 
-._errorMessage_16mgg_97 {
+._errorMessage_yxnz5_101 {
   display: block;
   width: 100%;
   color: #ef5555;

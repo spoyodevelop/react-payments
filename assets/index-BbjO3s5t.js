@@ -14484,7 +14484,9 @@ function CardNumberInputs({
     second.errorMessage,
     third.errorMessage,
     fourth.errorMessage
-  ].filter((msg) => !!msg);
+    // `!!msg`로 null, undefined, 빈 문자열, 0, NaN 같은 falsy 값을 걸러내고,
+    // `msg.trim() !== ''`로 공백만 있는 문자열까지 모두 필터링합니다.
+  ].filter((msg) => !!msg && msg.trim() !== "");
   const latestErrorMessage = errorMessages.length ? errorMessages[errorMessages.length - 1] : "";
   const handleInputChange = (key, value) => {
     handleCardNumberChange(key, value);
@@ -14615,13 +14617,20 @@ function CardExpireDateInputs({
     changeHandlers[key](value);
     handleAutoFocus(key, value, EXPIRE_DATE_KEYS, EXPIRE_DATE_LENGTH);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$8.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$8.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey, idx) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$8.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$8.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey) => {
     return /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$8.expireDateInputBox, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: `expire-${expireKey}-input`, isHidden: idx !== 0, children: "유효 기간" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Label,
+        {
+          htmlFor: `expire-${expireKey}-input`,
+          isHidden: expireKey !== "MM",
+          children: "유효 기간"
+        }
+      ),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Input,
         {
-          ref: idx === 0 ? ref : inputRefs[expireKey],
+          ref: expireKey === "MM" ? ref : inputRefs[expireKey],
           id: `expire-${expireKey}-input`,
           type: "text",
           maxLength: EXPIRE_DATE_LENGTH,
@@ -14629,7 +14638,7 @@ function CardExpireDateInputs({
           isError: Boolean(expireDate[expireKey].errorMessage),
           value: expireDate[expireKey].value,
           onChange: (e) => handleInputChange(expireKey, e.target.value),
-          onBlur: idx === 0 ? (e) => handleExpireMonthBlur(e.target.value) : void 0
+          onBlur: expireKey === "MM" ? (e) => handleExpireMonthBlur(e.target.value) : void 0
         }
       ),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -14720,6 +14729,9 @@ const styles$5 = {
   inputsContainer,
   buttonWrapper
 };
+const isFlowStep = (step2) => {
+  return STEP_ORDER.includes(step2);
+};
 function useFocusControl(currentStep, allValid) {
   const firstCardNumberInputRef = reactExports.useRef(null);
   const brandDropdownRef = reactExports.useRef(null);
@@ -14727,26 +14739,26 @@ function useFocusControl(currentStep, allValid) {
   const cvcInputRef = reactExports.useRef(null);
   const passwordInputRef = reactExports.useRef(null);
   const addCardButtonRef = reactExports.useRef(null);
-  const currentIndex = STEP_ORDER.indexOf(currentStep);
   reactExports.useEffect(() => {
     const timeoutId = setTimeout(() => {
       var _a, _b, _c, _d, _e, _f;
-      if (currentIndex === 0) {
+      if (!isFlowStep(currentStep)) return;
+      if (currentStep === "CARD_NUMBER") {
         (_a = firstCardNumberInputRef.current) == null ? void 0 : _a.focus();
-      } else if (currentIndex === 1) {
+      } else if (currentStep === "CARD_BRAND") {
         (_b = brandDropdownRef.current) == null ? void 0 : _b.focus();
-      } else if (currentIndex === 2) {
+      } else if (currentStep === "EXPIRE_DATE") {
         (_c = expireMonthInputRef.current) == null ? void 0 : _c.focus();
-      } else if (currentIndex === 3) {
+      } else if (currentStep === "CVC") {
         (_d = cvcInputRef.current) == null ? void 0 : _d.focus();
-      } else if (currentIndex === 4) {
+      } else if (currentStep === "PASSWORD") {
         (_e = passwordInputRef.current) == null ? void 0 : _e.focus();
       } else if (allValid) {
         (_f = addCardButtonRef.current) == null ? void 0 : _f.focus();
       }
     }, 0);
     return () => clearTimeout(timeoutId);
-  }, [currentIndex, allValid]);
+  }, [currentStep, allValid]);
   return {
     firstCardNumberInputRef,
     brandDropdownRef,
@@ -14756,6 +14768,11 @@ function useFocusControl(currentStep, allValid) {
     addCardButtonRef
   };
 }
+const locations = {
+  ADD_CARD_COMPLETE: {
+    pathname: "/complete"
+  }
+};
 function AddCardForm({
   addCardState: {
     cardNumberState,
@@ -14785,12 +14802,11 @@ function AddCardForm({
     addCardButtonRef
   } = useFocusControl(currentStep, allValid);
   function handleAddCardButton() {
-    navigate("/AddCardComplete", {
-      state: {
-        firstCardNumber: cardNumberState["first"].value,
-        selectedBrand
-      }
-    });
+    const state = {
+      firstCardNumber: cardNumberState["first"].value,
+      selectedBrand
+    };
+    navigate(locations.ADD_CARD_COMPLETE.pathname, { state });
   }
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "form",
@@ -14974,16 +14990,17 @@ function AddCardPreview({
     ] })
   ] });
 }
-const progressBarContainer = "_progressBarContainer_16mgg_1";
-const stepsIndicator = "_stepsIndicator_16mgg_9";
-const step = "_step_16mgg_9";
-const stepBar = "_stepBar_16mgg_26";
-const stepCircle = "_stepCircle_16mgg_30";
-const active = "_active_16mgg_48";
-const error = "_error_16mgg_54";
-const stepBarFill = "_stepBarFill_16mgg_70";
-const stepLabel = "_stepLabel_16mgg_87";
-const errorMessage = "_errorMessage_16mgg_97";
+const progressBarContainer = "_progressBarContainer_yxnz5_1";
+const stepsIndicator = "_stepsIndicator_yxnz5_9";
+const step = "_step_yxnz5_9";
+const stepBar = "_stepBar_yxnz5_26";
+const stepCircle = "_stepCircle_yxnz5_30";
+const active = "_active_yxnz5_48";
+const error = "_error_yxnz5_54";
+const stepBarFill = "_stepBarFill_yxnz5_70";
+const completed = "_completed_yxnz5_87";
+const stepLabel = "_stepLabel_yxnz5_91";
+const errorMessage = "_errorMessage_yxnz5_101";
 const styles$2 = {
   progressBarContainer,
   stepsIndicator,
@@ -14993,6 +15010,7 @@ const styles$2 = {
   active,
   error,
   stepBarFill,
+  completed,
   stepLabel,
   errorMessage
 };
@@ -15026,11 +15044,9 @@ const ProgressBar = ({
                 className: clsx(
                   styles$2.stepBarFill,
                   stepNumber <= currentStepNumber && styles$2.active,
+                  stepNumber <= currentStepNumber && styles$2.completed,
                   showValidationError && styles$2.error
                 ),
-                style: {
-                  width: stepNumber <= currentStepNumber ? "100%" : "0%"
-                },
                 "aria-hidden": "true"
               }
             ) }),
@@ -15455,9 +15471,15 @@ function AddCardCompleteModal() {
   );
 }
 function App() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { basename: "/react-payments", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { basename: "/react-payments/add-card", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { index: true, element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCard, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "AddCardComplete", element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCardCompleteModal, {}) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Route,
+      {
+        path: locations.ADD_CARD_COMPLETE.pathname,
+        element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCardCompleteModal, {})
+      }
+    )
   ] }) });
 }
 ReactDOM.createRoot(document.getElementById("root")).render(
