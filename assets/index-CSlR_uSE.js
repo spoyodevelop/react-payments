@@ -14440,19 +14440,23 @@ function Input({ isError, ref, ...props }) {
     }
   );
 }
+const isNumericNaN = (value) => {
+  return typeof value === "number" && Number.isNaN(value);
+};
 function useAutoFocus(keys) {
   const inputRefs = keys.reduce((acc, key) => {
     acc[key] = reactExports.useRef(null);
     return acc;
   }, {});
   const handleAutoFocus = (currentKey, value, keys2, maxLength) => {
-    var _a, _b;
-    if (value.length === maxLength) {
-      const currentIndex = keys2.indexOf(currentKey);
-      const nextKey = keys2[currentIndex + 1];
-      if (nextKey && ((_a = inputRefs[nextKey]) == null ? void 0 : _a.current)) {
-        (_b = inputRefs[nextKey].current) == null ? void 0 : _b.focus();
-      }
+    var _a;
+    if (value.length !== maxLength) return;
+    const numeric = Number(value);
+    if (isNumericNaN(numeric)) return;
+    const idx = keys2.indexOf(currentKey);
+    const nextKey = keys2[idx + 1];
+    if (nextKey && ((_a = inputRefs[nextKey]) == null ? void 0 : _a.current)) {
+      inputRefs[nextKey].current.focus();
     }
   };
   return { inputRefs, handleAutoFocus };
@@ -15022,9 +15026,6 @@ const ProgressBar = ({
     }) }),
     showValidationError && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$2.errorMessage, children: "입력값이 유효하지 않으니 다시 입력해주세요!" })
   ] });
-};
-const isNumericNaN = (value) => {
-  return typeof value === "number" && Number.isNaN(value);
 };
 const validateCardNumber = (cardNumber2) => {
   if (Number.isNaN(Number(cardNumber2))) {
