@@ -14770,9 +14770,6 @@ function useFocusControl(currentStep, allValid) {
 }
 const locations = {
   BASE_URL: "/react-payments",
-  ADD_CARD: {
-    pathname: "/"
-  },
   ADD_CARD_COMPLETE: {
     pathname: "complete"
   }
@@ -15418,7 +15415,7 @@ function AddCardCompleteModal() {
   const navigate = useNavigate();
   const { firstCardNumber = "****", selectedBrand = "현대카드" } = location.state || {};
   function handleAddCardConfirmButton() {
-    navigate(locations.ADD_CARD.pathname);
+    navigate("/");
   }
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "div",
