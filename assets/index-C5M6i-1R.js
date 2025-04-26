@@ -13327,6 +13327,38 @@ function DataRoutes({
 }) {
   return useRoutesImpl(routes, void 0, state, future);
 }
+function Navigate({
+  to,
+  replace: replace2,
+  state,
+  relative
+}) {
+  invariant(
+    useInRouterContext(),
+    // TODO: This error is probably because they somehow have 2 versions of
+    // the router loaded. We can help them understand how to avoid that.
+    `<Navigate> may be used only in the context of a <Router> component.`
+  );
+  let { static: isStatic } = reactExports.useContext(NavigationContext);
+  warning(
+    !isStatic,
+    `<Navigate> must not be used on the initial render in a <StaticRouter>. This is a no-op, but you should modify your code so the <Navigate> is only ever rendered in response to some user interaction or state change.`
+  );
+  let { matches } = reactExports.useContext(RouteContext);
+  let { pathname: locationPathname } = useLocation();
+  let navigate = useNavigate();
+  let path = resolveTo(
+    to,
+    getResolveToMatches(matches),
+    locationPathname,
+    relative === "path"
+  );
+  let jsonPath = JSON.stringify(path);
+  reactExports.useEffect(() => {
+    navigate(JSON.parse(jsonPath), { replace: replace2, state, relative });
+  }, [navigate, jsonPath, relative, replace2, state]);
+  return null;
+}
 function Route(_props) {
   invariant(
     false,
@@ -14769,6 +14801,10 @@ function useFocusControl(currentStep, allValid) {
   };
 }
 const locations = {
+  BASE_URL: "/react-payments",
+  ADD_CARD: {
+    pathname: "/add-card"
+  },
   ADD_CARD_COMPLETE: {
     pathname: "/complete"
   }
@@ -15414,7 +15450,7 @@ function AddCardCompleteModal() {
   const navigate = useNavigate();
   const { firstCardNumber = "****", selectedBrand = "현대카드" } = location.state || {};
   function handleAddCardConfirmButton() {
-    navigate("/");
+    navigate(locations.ADD_CARD.pathname);
   }
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "div",
@@ -15471,8 +15507,15 @@ function AddCardCompleteModal() {
   );
 }
 function App() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { basename: "/react-payments/add-card", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { index: true, element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCard, {}) }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { basename: locations.BASE_URL, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Route,
+      {
+        index: true,
+        element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: locations.ADD_CARD.pathname, replace: true })
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: locations.ADD_CARD.pathname, element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCard, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Route,
       {
