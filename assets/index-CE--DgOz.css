@@ -174,7 +174,7 @@ input::-webkit-inner-spin-button {
     4px 0 12px -4px rgba(0, 0, 0, 0.1), -4px 0 12px -4px rgba(0, 0, 0, 0.1);
   min-height: 100vh;
 }
-._button_12qni_1 {
+._button_3gmoq_1 {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -185,56 +185,45 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
   transition: background-color 0.2s;
   position: relative;
+  width: 100%;
 }
 
-._button_12qni_1:hover:not(:disabled) {
+._button_3gmoq_1:hover:not(:disabled) {
   background-color: #444;
 }
 
-._button_12qni_1:active:not(:disabled) {
+._button_3gmoq_1:active:not(:disabled) {
   background-color: #222;
 }
-._button_12qni_1:focus-visible {
+._button_3gmoq_1:focus-visible {
   outline: 2px solid #007bff;
 }
-._button_12qni_1:disabled {
+._button_3gmoq_1:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-._default_12qni_29 {
+._default_3gmoq_30 {
   border-radius: 0;
 }
 
-._rounded_12qni_33 {
+._rounded_3gmoq_34 {
   border-radius: 8px;
 }
 
-._small_12qni_37 {
+._small_3gmoq_38 {
   padding: 6px 12px;
   font-size: 12px;
 }
 
-._medium_12qni_42 {
+._medium_3gmoq_43 {
   padding: 8px 16px;
   font-size: 14px;
 }
 
-._large_12qni_47 {
+._large_3gmoq_48 {
   padding: 15px 30px;
   font-size: 22px;
-}
-
-._fullWidth_12qni_52 {
-  width: 100%;
-}
-
-._fixed_12qni_56 {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
 }
 ._title_19d6k_1 {
   margin-bottom: 0.5rem;
@@ -453,28 +442,38 @@ input::-webkit-inner-spin-button {
   font-family: "Noto Sans KR";
   font-size: 0.75rem;
 }
-._form_10rxb_1 {
+._form_gqs2u_1 {
   display: flex;
   flex-direction: column;
   gap: 1.8rem 0;
   width: 100%;
 }
 
-._inputsContainer_10rxb_8 {
+._inputsContainer_gqs2u_8 {
   display: flex;
   flex-direction: column-reverse;
   gap: 1.8rem 0;
 }
 
-._buttonWrapper_10rxb_14 {
+._buttonWrapper_gqs2u_14 {
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   max-width: 400px;
-  background: #333;
-  z-index: 1;
+}
+._fullWidthFixedWrapper_1s5o1_1 {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  width: 100%;
 }
 ._previewCard_1e503_1 {
   margin: 0 auto;

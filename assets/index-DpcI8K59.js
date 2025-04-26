@@ -12081,7 +12081,7 @@ function requireClient() {
 var clientExports = requireClient();
 const ReactDOM = /* @__PURE__ */ getDefaultExportFromCjs(clientExports);
 const container$6 = "_container_na73w_1";
-const styles$g = {
+const styles$h = {
   container: container$6
 };
 const STEP_ORDER = [
@@ -12092,14 +12092,6 @@ const STEP_ORDER = [
   "PASSWORD",
   "COMPLETE"
 ];
-const STEP_ORDER_INDEX = {
-  CARD_NUMBER: 1,
-  CARD_BRAND: 2,
-  EXPIRE_DATE: 3,
-  CVC: 4,
-  PASSWORD: 5,
-  COMPLETE: 6
-};
 const STEP_LABELS = ["카드번호", "카드사", "만료일", "CVC", "비밀번호"];
 var dist = {};
 var hasRequiredDist;
@@ -14321,44 +14313,30 @@ function clsx() {
   for (var e, t, f = 0, n = "", o = arguments.length; f < o; f++) (e = arguments[f]) && (t = r(e)) && (n && (n += " "), n += t);
   return n;
 }
-const button = "_button_12qni_1";
-const rounded = "_rounded_12qni_33";
-const small$1 = "_small_12qni_37";
-const medium$1 = "_medium_12qni_42";
-const large$1 = "_large_12qni_47";
-const fullWidth = "_fullWidth_12qni_52";
-const fixed = "_fixed_12qni_56";
-const styles$f = {
+const button = "_button_3gmoq_1";
+const rounded = "_rounded_3gmoq_34";
+const small$1 = "_small_3gmoq_38";
+const medium$1 = "_medium_3gmoq_43";
+const large$1 = "_large_3gmoq_48";
+const styles$g = {
   button,
-  "default": "_default_12qni_29",
+  "default": "_default_3gmoq_30",
   rounded,
   small: small$1,
   medium: medium$1,
-  large: large$1,
-  fullWidth,
-  fixed
+  large: large$1
 };
 function Button({
   variant = "default",
   size = "medium",
-  fullWidth: fullWidth2 = false,
-  fixed: fixed2 = false,
   children,
   className = "",
   ...props
 }) {
-  const shouldBeFixed = fixed2 || variant === "default" && fixed2 !== false;
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "button",
     {
-      className: clsx(
-        styles$f.button,
-        styles$f[variant],
-        styles$f[size],
-        fullWidth2 && styles$f.fullWidth,
-        shouldBeFixed && styles$f.fixed,
-        className
-      ),
+      className: clsx(styles$g.button, styles$g[variant], styles$g[size], className),
       ...props,
       children
     }
@@ -14366,7 +14344,7 @@ function Button({
 }
 const title = "_title_19d6k_1";
 const guideText = "_guideText_19d6k_10";
-const styles$e = {
+const styles$f = {
   title,
   guideText
 };
@@ -14380,12 +14358,12 @@ function CardInputBox({
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "fieldset",
     {
-      className: styles$e.container,
+      className: styles$f.container,
       "aria-describedby": guideText2 ? guideId : void 0,
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("legend", { className: styles$e.title, children: title2 }),
-        guideText2 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: guideId, className: styles$e.guideText, children: guideText2 }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$e.inputWrapper, children: InputComponents })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("legend", { className: styles$f.title, children: title2 }),
+        guideText2 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: guideId, className: styles$f.guideText, children: guideText2 }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$f.inputWrapper, children: InputComponents })
       ]
     }
   );
@@ -14394,7 +14372,7 @@ const container$5 = "_container_an611_1";
 const cardInputs = "_cardInputs_an611_8";
 const cardInputBox = "_cardInputBox_an611_13";
 const errorMessage$4 = "_errorMessage_an611_20";
-const styles$d = {
+const styles$e = {
   container: container$5,
   cardInputs,
   cardInputBox,
@@ -14419,7 +14397,7 @@ const CARD_NUMBER_ERROR_MESSAGE = {
 const CARD_NUMBER_LENGTH = 4;
 const label = "_label_1vjtc_1";
 const hidden = "_hidden_1vjtc_8";
-const styles$c = {
+const styles$d = {
   label,
   hidden
 };
@@ -14428,14 +14406,14 @@ function Label({ isHidden, children, ...props }) {
     "label",
     {
       ...props,
-      className: `${styles$c.label} ${isHidden ? styles$c.hidden : ""}`,
+      className: `${styles$d.label} ${isHidden ? styles$d.hidden : ""}`,
       children
     }
   );
 }
 const input = "_input_v81jq_1";
 const error$1 = "_error_v81jq_13";
-const styles$b = {
+const styles$c = {
   input,
   error: error$1
 };
@@ -14445,7 +14423,7 @@ function Input({ isError, ref, ...props }) {
     {
       ref,
       ...props,
-      className: `${styles$b.input} ${isError ? styles$b.error : ""}`
+      className: `${styles$c.input} ${isError ? styles$c.error : ""}`
     }
   );
 }
@@ -14492,8 +14470,8 @@ function CardNumberInputs({
     handleCardNumberChange(key, value);
     handleAutoFocus(key, value, CARD_NUMBER_INPUT_KEYS, CARD_NUMBER_LENGTH);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$d.container, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$d.cardInputs, children: CARD_NUMBER_INPUT_KEYS.map((inputKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$d.cardInputBox, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$e.container, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$e.cardInputs, children: CARD_NUMBER_INPUT_KEYS.map((inputKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$e.cardInputBox, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Label,
         {
@@ -14522,22 +14500,22 @@ function CardNumberInputs({
       {
         id: "card-number-error-message",
         role: "alert",
-        className: styles$d.errorMessage,
+        className: styles$e.errorMessage,
         children: latestErrorMessage
       }
     )
   ] });
 }
 const container$4 = "_container_4t5r2_1";
-const styles$a = {
+const styles$b = {
   container: container$4
 };
 const dropdown = "_dropdown_dwpua_1";
-const styles$9 = {
+const styles$a = {
   dropdown
 };
 function Dropdown({ options, placeholder, ref, ...props }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("select", { ref, ...props, className: styles$9.dropdown, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("select", { ref, ...props, className: styles$a.dropdown, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", disabled: true, children: placeholder }),
     options.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: item, children: item }, item))
   ] });
@@ -14567,7 +14545,7 @@ function CardBrandDropdown({
   setSelectedBrand,
   ref
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$a.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$b.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     Dropdown,
     {
       ref,
@@ -14583,7 +14561,7 @@ const container$3 = "_container_1xa0n_1";
 const expireDateInputContainer = "_expireDateInputContainer_1xa0n_9";
 const expireDateInputBox = "_expireDateInputBox_1xa0n_14";
 const errorMessage$3 = "_errorMessage_1xa0n_23";
-const styles$8 = {
+const styles$9 = {
   container: container$3,
   expireDateInputContainer,
   expireDateInputBox,
@@ -14617,8 +14595,8 @@ function CardExpireDateInputs({
     changeHandlers[key](value);
     handleAutoFocus(key, value, EXPIRE_DATE_KEYS, EXPIRE_DATE_LENGTH);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$8.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$8.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey) => {
-    return /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$8.expireDateInputBox, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$9.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$9.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey) => {
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$9.expireDateInputBox, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Label,
         {
@@ -14645,7 +14623,7 @@ function CardExpireDateInputs({
         "span",
         {
           id: `${expireKey}-error-message`,
-          className: styles$8.errorMessage,
+          className: styles$9.errorMessage,
           children: expireDate[expireKey].errorMessage
         }
       )
@@ -14656,7 +14634,7 @@ CardExpireDateInputs.displayName = "CardExpireDateInputs";
 const container$2 = "_container_1sop9_1";
 const cvcInputs = "_cvcInputs_1sop9_9";
 const errorMessage$2 = "_errorMessage_1sop9_14";
-const styles$7 = {
+const styles$8 = {
   container: container$2,
   cvcInputs,
   errorMessage: errorMessage$2
@@ -14667,9 +14645,9 @@ const CVC_ERROR_MESSAGE = {
   INVALID_CVC_LENGTH: "CVC는 3자리의 숫자만 입력 가능합니다."
 };
 function CVCInputs({ CVCState, handleCVCChange, ref }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.container, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$8.container, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "cvc-input", children: "CVC" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$7.cvcInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$8.cvcInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Input,
       {
         ref,
@@ -14682,13 +14660,13 @@ function CVCInputs({ CVCState, handleCVCChange, ref }) {
         onChange: (e) => handleCVCChange(e.target.value)
       }
     ) }),
-    CVCState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$7.errorMessage, children: CVCState.errorMessage })
+    CVCState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$8.errorMessage, children: CVCState.errorMessage })
   ] });
 }
 const container$1 = "_container_s5ckw_1";
 const passwordInputs = "_passwordInputs_s5ckw_9";
 const errorMessage$1 = "_errorMessage_s5ckw_14";
-const styles$6 = {
+const styles$7 = {
   container: container$1,
   passwordInputs,
   errorMessage: errorMessage$1
@@ -14703,9 +14681,9 @@ const PasswordInputs = ({
   handlePasswordChange,
   ref
 }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.container, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.container, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "password-input", children: "비밀번호 앞 2자리" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$6.passwordInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$7.passwordInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Input,
       {
         ref,
@@ -14718,13 +14696,13 @@ const PasswordInputs = ({
         onChange: (e) => handlePasswordChange(e.target.value)
       }
     ) }),
-    passwordState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$6.errorMessage, children: passwordState.errorMessage })
+    passwordState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$7.errorMessage, children: passwordState.errorMessage })
   ] });
 };
-const form = "_form_10rxb_1";
-const inputsContainer = "_inputsContainer_10rxb_8";
-const buttonWrapper = "_buttonWrapper_10rxb_14";
-const styles$5 = {
+const form = "_form_gqs2u_1";
+const inputsContainer = "_inputsContainer_gqs2u_8";
+const buttonWrapper = "_buttonWrapper_gqs2u_14";
+const styles$6 = {
   form,
   inputsContainer,
   buttonWrapper
@@ -14774,6 +14752,13 @@ const locations = {
     pathname: "complete"
   }
 };
+const fullWidthFixedWrapper = "_fullWidthFixedWrapper_1s5o1_1";
+const styles$5 = {
+  fullWidthFixedWrapper
+};
+function FullWidthFixed({ children }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$5.fullWidthFixedWrapper, children });
+}
 function AddCardForm({
   addCardState: {
     cardNumberState,
@@ -14812,14 +14797,14 @@ function AddCardForm({
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "form",
     {
-      className: styles$5.form,
+      className: styles$6.form,
       onSubmit: (e) => e.preventDefault(),
       "aria-label": "카드 등록 양식",
       role: "form",
       name: "cc-number",
       autoComplete: "cc-number",
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$5.inputsContainer, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.inputsContainer, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             CardInputBox,
             {
@@ -14835,7 +14820,7 @@ function AddCardForm({
               )
             }
           ),
-          currentIndex >= 1 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          currentIndex >= STEP_ORDER.indexOf("CARD_BRAND") && /* @__PURE__ */ jsxRuntimeExports.jsx(
             CardInputBox,
             {
               title: "카드사를 선택해 주세요",
@@ -14850,7 +14835,7 @@ function AddCardForm({
               )
             }
           ),
-          currentIndex >= 2 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          currentIndex >= STEP_ORDER.indexOf("EXPIRE_DATE") && /* @__PURE__ */ jsxRuntimeExports.jsx(
             CardInputBox,
             {
               title: "카드 유효기간을 입력해 주세요",
@@ -14867,7 +14852,7 @@ function AddCardForm({
               )
             }
           ),
-          currentIndex >= 3 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          currentIndex >= STEP_ORDER.indexOf("CVC") && /* @__PURE__ */ jsxRuntimeExports.jsx(
             CardInputBox,
             {
               title: "CVC 번호를 입력해 주세요",
@@ -14881,7 +14866,7 @@ function AddCardForm({
               )
             }
           ),
-          currentIndex >= 4 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          currentIndex >= STEP_ORDER.indexOf("PASSWORD") && /* @__PURE__ */ jsxRuntimeExports.jsx(
             CardInputBox,
             {
               title: "비밀번호를 입력해주세요",
@@ -14896,17 +14881,16 @@ function AddCardForm({
             }
           )
         ] }),
-        allValid && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$5.buttonWrapper, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        allValid && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$6.buttonWrapper, children: /* @__PURE__ */ jsxRuntimeExports.jsx(FullWidthFixed, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           Button,
           {
             ref: addCardButtonRef,
             variant: "default",
             size: "large",
-            fullWidth: true,
             onClick: handleAddCardButton,
             children: "확인"
           }
-        ) })
+        ) }) })
       ]
     }
   );
@@ -15020,7 +15004,7 @@ const ProgressBar = ({
   allValid,
   stepLabels
 }) => {
-  const currentStepNumber = STEP_ORDER_INDEX[currentStep] ?? 1;
+  const currentStepNumber = STEP_ORDER.indexOf(currentStep) + 1;
   const showValidationError = currentStep === "COMPLETE" && !allValid;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.progressBarContainer, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$2.stepsIndicator, children: stepLabels.map((label2, index) => {
@@ -15333,7 +15317,7 @@ const useCardRegistrationFlow = () => {
 function AddCard() {
   const { state, previewState, currentStep, allValid } = useCardRegistrationFlow();
   const { cardNumberState, expireDate, selectedBrand } = previewState;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$g.container, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$h.container, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       ProgressBar,
       {
@@ -15460,7 +15444,6 @@ function AddCardCompleteModal() {
                 size: "large",
                 onClick: handleAddCardConfirmButton,
                 variant: "rounded",
-                fullWidth: true,
                 "aria-label": "확인 및 홈으로 이동",
                 children: "확인"
               }
