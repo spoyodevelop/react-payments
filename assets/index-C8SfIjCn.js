@@ -14771,7 +14771,7 @@ function useFocusControl(currentStep, allValid) {
 const locations = {
   BASE_URL: "/react-payments",
   ADD_CARD: {
-    pathname: ""
+    pathname: "/"
   },
   ADD_CARD_COMPLETE: {
     pathname: "complete"
