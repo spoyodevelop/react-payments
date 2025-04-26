@@ -14375,11 +14375,20 @@ function CardInputBox({
   guideText: guideText2,
   InputComponents
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$e.container, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: styles$e.title, children: title2 }),
-    guideText2 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$e.guideText, children: guideText2 }),
-    InputComponents
-  ] });
+  const id = reactExports.useId();
+  const guideId = `${id}-guide`;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "fieldset",
+    {
+      className: styles$e.container,
+      "aria-describedby": guideText2 ? guideId : void 0,
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("legend", { className: styles$e.title, children: title2 }),
+        guideText2 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: guideId, className: styles$e.guideText, children: guideText2 }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$e.inputWrapper, children: InputComponents })
+      ]
+    }
+  );
 }
 const container$5 = "_container_an611_1";
 const cardInputs = "_cardInputs_an611_8";
