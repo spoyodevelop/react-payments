@@ -12092,7 +12092,13 @@ const STEP_ORDER = [
   "PASSWORD",
   "COMPLETE"
 ];
-const STEP_LABELS = ["카드번호", "카드사", "만료일", "CVC", "비밀번호"];
+const STEP_LABELS = {
+  CARD_NUMBER: "카드번호",
+  CARD_BRAND: "카드사",
+  EXPIRE_DATE: "만료일",
+  CVC: "CVC",
+  PASSWORD: "비밀번호"
+};
 var dist = {};
 var hasRequiredDist;
 function requireDist() {
@@ -14717,22 +14723,23 @@ function useFocusControl(currentStep, allValid) {
   const cvcInputRef = reactExports.useRef(null);
   const passwordInputRef = reactExports.useRef(null);
   const addCardButtonRef = reactExports.useRef(null);
+  const focusMap = {
+    CARD_NUMBER: firstCardNumberInputRef,
+    CARD_BRAND: brandDropdownRef,
+    EXPIRE_DATE: expireMonthInputRef,
+    CVC: cvcInputRef,
+    PASSWORD: passwordInputRef
+  };
   reactExports.useEffect(() => {
     const timeoutId = setTimeout(() => {
-      var _a, _b, _c, _d, _e, _f;
+      var _a, _b, _c;
       if (!isFlowStep(currentStep)) return;
-      if (currentStep === "CARD_NUMBER") {
-        (_a = firstCardNumberInputRef.current) == null ? void 0 : _a.focus();
-      } else if (currentStep === "CARD_BRAND") {
-        (_b = brandDropdownRef.current) == null ? void 0 : _b.focus();
-      } else if (currentStep === "EXPIRE_DATE") {
-        (_c = expireMonthInputRef.current) == null ? void 0 : _c.focus();
-      } else if (currentStep === "CVC") {
-        (_d = cvcInputRef.current) == null ? void 0 : _d.focus();
-      } else if (currentStep === "PASSWORD") {
-        (_e = passwordInputRef.current) == null ? void 0 : _e.focus();
-      } else if (allValid) {
-        (_f = addCardButtonRef.current) == null ? void 0 : _f.focus();
+      if (allValid) {
+        (_a = addCardButtonRef.current) == null ? void 0 : _a.focus();
+        return;
+      }
+      if (currentStep !== "COMPLETE") {
+        (_c = (_b = focusMap[currentStep]) == null ? void 0 : _b.current) == null ? void 0 : _c.focus();
       }
     }, 0);
     return () => clearTimeout(timeoutId);
@@ -15006,8 +15013,9 @@ const ProgressBar = ({
   const currentStepNumber = STEP_ORDER.indexOf(currentStep) + 1;
   const showValidationError = currentStep === "COMPLETE" && !allValid;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$3.progressBarContainer, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.stepsIndicator, children: stepLabels.map((label2, index) => {
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.stepsIndicator, children: STEP_ORDER.filter((step2) => step2 !== "COMPLETE").map((step2, index) => {
       const stepNumber = index + 1;
+      const label2 = stepLabels[step2];
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
         "div",
         {
@@ -15429,20 +15437,20 @@ function Fallback({
 function AddCardCompleteModal() {
   const location = useLocation();
   const navigate = useNavigate();
+  const handleAddCardConfirmButton = () => {
+    navigate(locations.ADD_CARD);
+  };
   if (!location.state) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx(
       Fallback,
       {
         message: "비정상적 접근입니다.",
         buttonText: "홈으로 돌아가기",
-        onButtonClick: () => navigate("/")
+        onButtonClick: handleAddCardConfirmButton
       }
     );
   }
   const { firstCardNumber, selectedBrand } = location.state;
-  const handleAddCardConfirmButton = () => {
-    navigate(locations.ADD_CARD);
-  };
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "div",
     {
