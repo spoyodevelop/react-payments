@@ -14748,6 +14748,7 @@ function useFocusControl(currentStep, allValid) {
 }
 const locations = {
   BASE_URL: "/react-payments",
+  ADD_CARD: "/",
   ADD_CARD_COMPLETE: "complete"
 };
 const fullWidthFixedWrapper = "_fullWidthFixedWrapper_1s5o1_1";
@@ -14790,7 +14791,7 @@ function AddCardForm({
       firstCardNumber: cardNumberState["first"].value,
       selectedBrand
     };
-    navigate(locations.ADD_CARD_COMPLETE.pathname, { state });
+    navigate(locations.ADD_CARD_COMPLETE, { state });
   }
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "form",
@@ -15440,7 +15441,7 @@ function AddCardCompleteModal() {
   }
   const { firstCardNumber, selectedBrand } = location.state;
   const handleAddCardConfirmButton = () => {
-    navigate(locations.ADD_CARD_COMPLETE);
+    navigate(locations.ADD_CARD);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "div",
@@ -15500,7 +15501,7 @@ function App() {
   const handleFallbackButtonClick = () => {
     navigate("/");
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { basename: locations.BASE_URL, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { index: true, element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCard, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Route,
@@ -15523,8 +15524,8 @@ function App() {
         )
       }
     )
-  ] }) });
+  ] });
 }
 ReactDOM.createRoot(document.getElementById("root")).render(
-  /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) })
+  /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { basename: locations.BASE_URL, children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) }) })
 );
