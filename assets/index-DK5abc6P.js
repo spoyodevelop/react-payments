@@ -17842,10 +17842,24 @@ var reactDomExports = requireReactDom();
 function RouterProvider2(props) {
   return /* @__PURE__ */ reactExports.createElement(RouterProvider, { flushSync: reactDomExports.flushSync, ...props });
 }
-const locations = {
-  BASE_URL: "/react-payments",
-  ADD_CARD: "/",
-  ADD_CARD_COMPLETE: "complete"
+const container$7 = "_container_na73w_1";
+const styles$i = {
+  container: container$7
+};
+const STEP_ORDER = [
+  "CARD_NUMBER",
+  "CARD_BRAND",
+  "EXPIRE_DATE",
+  "CVC",
+  "PASSWORD",
+  "COMPLETE"
+];
+const STEP_LABELS = {
+  CARD_NUMBER: "카드번호",
+  CARD_BRAND: "카드사",
+  EXPIRE_DATE: "만료일",
+  CVC: "CVC",
+  PASSWORD: "비밀번호"
 };
 function r(e) {
   var t, f, n = "";
@@ -17865,7 +17879,7 @@ const rounded = "_rounded_3gmoq_34";
 const small$1 = "_small_3gmoq_38";
 const medium$1 = "_medium_3gmoq_43";
 const large$1 = "_large_3gmoq_48";
-const styles$i = {
+const styles$h = {
   button,
   "default": "_default_3gmoq_30",
   rounded,
@@ -17883,187 +17897,15 @@ function Button({
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "button",
     {
-      className: clsx(styles$i.button, styles$i[variant], styles$i[size], className),
+      className: clsx(styles$h.button, styles$h[variant], styles$h[size], className),
       ...props,
       children
     }
   );
 }
-const container$7 = "_container_pgg4m_1";
-const description = "_description_pgg4m_8";
-const details = "_details_pgg4m_15";
-const detailsSpan = "_detailsSpan_pgg4m_25";
-const styles$h = {
-  container: container$7,
-  description,
-  details,
-  detailsSpan
-};
-const roundCheckIcon = "_roundCheckIcon_16zuh_1";
-const checkMark = "_checkMark_16zuh_10";
-const small = "_small_16zuh_15";
-const medium = "_medium_16zuh_20";
-const large = "_large_16zuh_25";
-const styles$g = {
-  roundCheckIcon,
-  checkMark,
-  small,
-  medium,
-  large
-};
-const RoundCheckIcon = ({ size = "medium" }) => {
-  const containerClassName = clsx(styles$g.roundCheckIcon, styles$g[size]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    "div",
-    {
-      className: containerClassName,
-      role: "img",
-      "aria-label": "Success check mark",
-      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "svg",
-        {
-          viewBox: "0 0 24 24",
-          fill: "none",
-          stroke: "currentColor",
-          strokeWidth: "4",
-          strokeLinecap: "round",
-          strokeLinejoin: "round",
-          className: styles$g.checkMark,
-          "aria-hidden": "true",
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("title", { children: "Check mark" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("polyline", { points: "20 6 9 17 4 12" })
-          ]
-        }
-      )
-    }
-  );
-};
-const container$6 = "_container_1mirm_1";
-const icon = "_icon_1mirm_12";
-const message = "_message_1mirm_16";
-const styles$f = {
-  container: container$6,
-  icon,
-  message
-};
-function Fallback({
-  message: message2,
-  buttonText = "홈으로 이동",
-  onButtonClick
-}) {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    if (onButtonClick) return onButtonClick();
-    navigate("/");
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$f.container, role: "alert", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$f.icon, children: "⚠️" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$f.message, children: message2 }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Button,
-      {
-        size: "large",
-        variant: "rounded",
-        onClick: handleClick,
-        "aria-label": buttonText,
-        children: buttonText
-      }
-    )
-  ] });
-}
-function AddCardCompleteModal() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const handleAddCardConfirmButton = () => {
-    navigate(locations.ADD_CARD);
-  };
-  if (!location.state) {
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Fallback,
-      {
-        message: "비정상적 접근입니다.",
-        buttonText: "홈으로 돌아가기",
-        onButtonClick: handleAddCardConfirmButton
-      }
-    );
-  }
-  const { firstCardNumber, selectedBrand } = location.state;
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    "div",
-    {
-      className: styles$h.container,
-      role: "dialog",
-      "aria-labelledby": "card-complete-title",
-      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "div",
-        {
-          className: styles$h.description,
-          "aria-describedby": "card-complete-description",
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(RoundCheckIcon, { size: "large" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { id: "card-complete-title", className: styles$h.details, children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "span",
-                {
-                  id: "card-complete-number-description",
-                  className: styles$h.detailsSpan,
-                  children: [
-                    firstCardNumber,
-                    "로 시작하는"
-                  ]
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "span",
-                {
-                  id: "card-complete-brand-description",
-                  className: styles$h.detailsSpan,
-                  children: [
-                    selectedBrand === "카카오뱅크" ? "카카오뱅크 카드" : selectedBrand,
-                    "가 등록되었어요!"
-                  ]
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Button,
-              {
-                size: "large",
-                variant: "rounded",
-                onClick: handleAddCardConfirmButton,
-                "aria-label": "확인 및 홈으로 이동",
-                children: "확인"
-              }
-            )
-          ]
-        }
-      )
-    }
-  );
-}
-const container$5 = "_container_na73w_1";
-const styles$e = {
-  container: container$5
-};
-const STEP_ORDER = [
-  "CARD_NUMBER",
-  "CARD_BRAND",
-  "EXPIRE_DATE",
-  "CVC",
-  "PASSWORD",
-  "COMPLETE"
-];
-const STEP_LABELS = {
-  CARD_NUMBER: "카드번호",
-  CARD_BRAND: "카드사",
-  EXPIRE_DATE: "만료일",
-  CVC: "CVC",
-  PASSWORD: "비밀번호"
-};
 const title = "_title_19d6k_1";
 const guideText = "_guideText_19d6k_10";
-const styles$d = {
+const styles$g = {
   title,
   guideText
 };
@@ -18077,22 +17919,22 @@ function CardInputBox({
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "fieldset",
     {
-      className: styles$d.container,
+      className: styles$g.container,
       "aria-describedby": guideText2 ? guideId : void 0,
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("legend", { className: styles$d.title, children: title2 }),
-        guideText2 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: guideId, className: styles$d.guideText, children: guideText2 }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$d.inputWrapper, children: InputComponents })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("legend", { className: styles$g.title, children: title2 }),
+        guideText2 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: guideId, className: styles$g.guideText, children: guideText2 }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$g.inputWrapper, children: InputComponents })
       ]
     }
   );
 }
-const container$4 = "_container_an611_1";
+const container$6 = "_container_an611_1";
 const cardInputs = "_cardInputs_an611_8";
 const cardInputBox = "_cardInputBox_an611_13";
 const errorMessage$4 = "_errorMessage_an611_20";
-const styles$c = {
-  container: container$4,
+const styles$f = {
+  container: container$6,
   cardInputs,
   cardInputBox,
   errorMessage: errorMessage$4
@@ -18116,7 +17958,7 @@ const CARD_NUMBER_ERROR_MESSAGE = {
 const CARD_NUMBER_LENGTH = 4;
 const label = "_label_1vjtc_1";
 const hidden = "_hidden_1vjtc_8";
-const styles$b = {
+const styles$e = {
   label,
   hidden
 };
@@ -18125,14 +17967,14 @@ function Label({ isHidden, children, ...props }) {
     "label",
     {
       ...props,
-      className: `${styles$b.label} ${isHidden ? styles$b.hidden : ""}`,
+      className: `${styles$e.label} ${isHidden ? styles$e.hidden : ""}`,
       children
     }
   );
 }
 const input = "_input_v81jq_1";
 const error$1 = "_error_v81jq_13";
-const styles$a = {
+const styles$d = {
   input,
   error: error$1
 };
@@ -18142,7 +17984,7 @@ function Input({ isError, ref, ...props }) {
     {
       ref,
       ...props,
-      className: `${styles$a.input} ${isError ? styles$a.error : ""}`
+      className: `${styles$d.input} ${isError ? styles$d.error : ""}`
     }
   );
 }
@@ -18189,8 +18031,8 @@ function CardNumberInputs({
     handleCardNumberChange(key, value);
     handleAutoFocus(key, value, CARD_NUMBER_INPUT_KEYS, CARD_NUMBER_LENGTH);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$c.container, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$c.cardInputs, children: CARD_NUMBER_INPUT_KEYS.map((inputKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$c.cardInputBox, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$f.container, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$f.cardInputs, children: CARD_NUMBER_INPUT_KEYS.map((inputKey, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$f.cardInputBox, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Label,
         {
@@ -18219,22 +18061,22 @@ function CardNumberInputs({
       {
         id: "card-number-error-message",
         role: "alert",
-        className: styles$c.errorMessage,
+        className: styles$f.errorMessage,
         children: latestErrorMessage
       }
     )
   ] });
 }
-const container$3 = "_container_4t5r2_1";
-const styles$9 = {
-  container: container$3
+const container$5 = "_container_4t5r2_1";
+const styles$c = {
+  container: container$5
 };
 const dropdown = "_dropdown_dwpua_1";
-const styles$8 = {
+const styles$b = {
   dropdown
 };
 function Dropdown({ options, placeholder, ref, ...props }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("select", { ref, ...props, className: styles$8.dropdown, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("select", { ref, ...props, className: styles$b.dropdown, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", disabled: true, children: placeholder }),
     options.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: item, children: item }, item))
   ] });
@@ -18264,7 +18106,7 @@ function CardBrandDropdown({
   setSelectedBrand,
   ref
 }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$9.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$c.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
     Dropdown,
     {
       ref,
@@ -18276,12 +18118,12 @@ function CardBrandDropdown({
     }
   ) });
 }
-const container$2 = "_container_1xa0n_1";
+const container$4 = "_container_1xa0n_1";
 const expireDateInputContainer = "_expireDateInputContainer_1xa0n_9";
 const expireDateInputBox = "_expireDateInputBox_1xa0n_14";
 const errorMessage$3 = "_errorMessage_1xa0n_23";
-const styles$7 = {
-  container: container$2,
+const styles$a = {
+  container: container$4,
   expireDateInputContainer,
   expireDateInputBox,
   errorMessage: errorMessage$3
@@ -18314,8 +18156,8 @@ function CardExpireDateInputs({
     changeHandlers[key](value);
     handleAutoFocus(key, value, EXPIRE_DATE_KEYS, EXPIRE_DATE_LENGTH);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey) => {
-    return /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$7.expireDateInputBox, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$a.container, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$a.expireDateInputContainer, children: EXPIRE_DATE_KEYS.map((expireKey) => {
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: styles$a.expireDateInputBox, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         Label,
         {
@@ -18342,7 +18184,7 @@ function CardExpireDateInputs({
         "span",
         {
           id: `${expireKey}-error-message`,
-          className: styles$7.errorMessage,
+          className: styles$a.errorMessage,
           children: expireDate[expireKey].errorMessage
         }
       )
@@ -18350,11 +18192,11 @@ function CardExpireDateInputs({
   }) }) });
 }
 CardExpireDateInputs.displayName = "CardExpireDateInputs";
-const container$1 = "_container_1sop9_1";
+const container$3 = "_container_1sop9_1";
 const cvcInputs = "_cvcInputs_1sop9_9";
 const errorMessage$2 = "_errorMessage_1sop9_14";
-const styles$6 = {
-  container: container$1,
+const styles$9 = {
+  container: container$3,
   cvcInputs,
   errorMessage: errorMessage$2
 };
@@ -18364,9 +18206,9 @@ const CVC_ERROR_MESSAGE = {
   INVALID_CVC_LENGTH: "CVC는 3자리의 숫자만 입력 가능합니다."
 };
 function CVCInputs({ CVCState, handleCVCChange, ref }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$6.container, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$9.container, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "cvc-input", children: "CVC" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$6.cvcInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$9.cvcInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Input,
       {
         ref,
@@ -18379,14 +18221,14 @@ function CVCInputs({ CVCState, handleCVCChange, ref }) {
         onChange: (e) => handleCVCChange(e.target.value)
       }
     ) }),
-    CVCState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$6.errorMessage, children: CVCState.errorMessage })
+    CVCState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$9.errorMessage, children: CVCState.errorMessage })
   ] });
 }
-const container = "_container_s5ckw_1";
+const container$2 = "_container_s5ckw_1";
 const passwordInputs = "_passwordInputs_s5ckw_9";
 const errorMessage$1 = "_errorMessage_s5ckw_14";
-const styles$5 = {
-  container,
+const styles$8 = {
+  container: container$2,
   passwordInputs,
   errorMessage: errorMessage$1
 };
@@ -18400,9 +18242,9 @@ const PasswordInputs = ({
   handlePasswordChange,
   ref
 }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$5.container, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$8.container, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "password-input", children: "비밀번호 앞 2자리" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$5.passwordInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$8.passwordInputs, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       Input,
       {
         ref,
@@ -18415,13 +18257,13 @@ const PasswordInputs = ({
         onChange: (e) => handlePasswordChange(e.target.value)
       }
     ) }),
-    passwordState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$5.errorMessage, children: passwordState.errorMessage })
+    passwordState.errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { id: "error-message", className: styles$8.errorMessage, children: passwordState.errorMessage })
   ] });
 };
 const form = "_form_gqs2u_1";
 const inputsContainer = "_inputsContainer_gqs2u_8";
 const buttonWrapper = "_buttonWrapper_gqs2u_14";
-const styles$4 = {
+const styles$7 = {
   form,
   inputsContainer,
   buttonWrapper
@@ -18466,12 +18308,17 @@ function useFocusControl(currentStep, allValid) {
     addCardButtonRef
   };
 }
+const locations = {
+  BASE_URL: "/react-payments",
+  ADD_CARD: "/",
+  ADD_CARD_COMPLETE: "complete"
+};
 const fullWidthFixedWrapper = "_fullWidthFixedWrapper_1s5o1_1";
-const styles$3 = {
+const styles$6 = {
   fullWidthFixedWrapper
 };
 function FullWidthFixed({ children }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.fullWidthFixedWrapper, children });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$6.fullWidthFixedWrapper, children });
 }
 function AddCardForm({
   addCardState: {
@@ -18511,14 +18358,14 @@ function AddCardForm({
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "form",
     {
-      className: styles$4.form,
+      className: styles$7.form,
       onSubmit: (e) => e.preventDefault(),
       "aria-label": "카드 등록 양식",
       role: "form",
       name: "cc-number",
       autoComplete: "cc-number",
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$4.inputsContainer, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$7.inputsContainer, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             CardInputBox,
             {
@@ -18595,7 +18442,7 @@ function AddCardForm({
             }
           )
         ] }),
-        allValid && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$4.buttonWrapper, children: /* @__PURE__ */ jsxRuntimeExports.jsx(FullWidthFixed, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        allValid && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$7.buttonWrapper, children: /* @__PURE__ */ jsxRuntimeExports.jsx(FullWidthFixed, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           Button,
           {
             ref: addCardButtonRef,
@@ -18615,7 +18462,7 @@ const chip = "_chip_1e503_23";
 const cardNumber = "_cardNumber_1e503_30";
 const dots = "_dots_1e503_50";
 const expire = "_expire_1e503_58";
-const styles$2 = {
+const styles$5 = {
   previewCard,
   previewHeader,
   chip,
@@ -18624,11 +18471,11 @@ const styles$2 = {
   expire
 };
 const dot = "_dot_xnpfw_1";
-const styles$1 = {
+const styles$4 = {
   dot
 };
 function Dot({ style }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$1.dot, style });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$4.dot, style });
 }
 const getOverseaCardBrand = (cardNumber2) => {
   if (cardNumber2[0] === "4") {
@@ -18667,22 +18514,22 @@ function AddCardPreview({
   const overseaCardBrand = getOverseaCardBrand(cardNumberState.first.value);
   const cardColor = selectedBrand ? CARD_BRAND_COLOR[selectedBrand] : "#A0A0A0";
   const textColor = selectedBrand ? getTextColorForBackground(CARD_BRAND_COLOR[selectedBrand]) : "#FFFFFF";
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.previewCard, style: { backgroundColor: cardColor }, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.previewHeader, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$2.chip }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$5.previewCard, style: { backgroundColor: cardColor }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$5.previewHeader, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles$5.chip }),
       overseaCardBrand !== "DEFAULT" && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: CARD_BRAND_IMAGES[overseaCardBrand], alt: "카드 브랜드" }) })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.cardNumber, style: { color: textColor }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$5.cardNumber, style: { color: textColor }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: cardNumberState.first.value }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: cardNumberState.second.value }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$2.dots, children: Array.from({ length: cardNumberState.third.value.length }).map(
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$5.dots, children: Array.from({ length: cardNumberState.third.value.length }).map(
         (_, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(Dot, { style: { backgroundColor: textColor } }, index)
       ) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$2.dots, children: Array.from({ length: cardNumberState.fourth.value.length }).map(
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$5.dots, children: Array.from({ length: cardNumberState.fourth.value.length }).map(
         (_, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(Dot, { style: { backgroundColor: textColor } }, index)
       ) })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$2.expire, style: { color: textColor }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$5.expire, style: { color: textColor }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: expireDate.MM.value }),
       (expireDate.MM.value || expireDate.YY.value) && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "/" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: expireDate.YY.value })
@@ -18700,7 +18547,7 @@ const stepBarFill = "_stepBarFill_yxnz5_70";
 const completed = "_completed_yxnz5_87";
 const stepLabel = "_stepLabel_yxnz5_91";
 const errorMessage = "_errorMessage_yxnz5_101";
-const styles = {
+const styles$3 = {
   progressBarContainer,
   stepsIndicator,
   step,
@@ -18720,43 +18567,43 @@ const ProgressBar = ({
 }) => {
   const currentStepNumber = STEP_ORDER.indexOf(currentStep) + 1;
   const showValidationError = currentStep === "COMPLETE" && !allValid;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles.progressBarContainer, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.stepsIndicator, children: STEP_ORDER.filter((step2) => step2 !== "COMPLETE").map((step2, index) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$3.progressBarContainer, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.stepsIndicator, children: STEP_ORDER.filter((step2) => step2 !== "COMPLETE").map((step2, index) => {
       const stepNumber = index + 1;
       const label2 = stepLabels[step2];
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
         "div",
         {
           className: clsx(
-            styles.step,
-            stepNumber <= currentStepNumber && styles.active,
-            showValidationError && styles.error
+            styles$3.step,
+            stepNumber <= currentStepNumber && styles$3.active,
+            showValidationError && styles$3.error
           ),
           "aria-label": `Step ${stepNumber}: ${label2}`,
           role: "region",
           "aria-current": stepNumber === currentStepNumber ? "step" : void 0,
           "aria-selected": stepNumber <= currentStepNumber,
           children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.stepCircle, children: stepNumber }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.stepBar, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.stepCircle, children: stepNumber }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.stepBar, children: /* @__PURE__ */ jsxRuntimeExports.jsx(
               "div",
               {
                 className: clsx(
-                  styles.stepBarFill,
-                  stepNumber <= currentStepNumber && styles.active,
-                  stepNumber <= currentStepNumber && styles.completed,
-                  showValidationError && styles.error
+                  styles$3.stepBarFill,
+                  stepNumber <= currentStepNumber && styles$3.active,
+                  stepNumber <= currentStepNumber && styles$3.completed,
+                  showValidationError && styles$3.error
                 ),
                 "aria-hidden": "true"
               }
             ) }),
-            !showValidationError && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.stepLabel, children: label2 })
+            !showValidationError && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles$3.stepLabel, children: label2 })
           ]
         },
         stepNumber
       );
     }) }),
-    showValidationError && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles.errorMessage, children: "입력값이 유효하지 않으니 다시 입력해주세요!" })
+    showValidationError && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: styles$3.errorMessage, children: "입력값이 유효하지 않으니 다시 입력해주세요!" })
   ] });
 };
 const validateCardNumber = (cardNumber2) => {
@@ -19032,7 +18879,7 @@ const useCardRegistrationFlow = () => {
 function AddCard() {
   const { state, previewState, currentStep, allValid } = useCardRegistrationFlow();
   const { cardNumberState, expireDate, selectedBrand } = previewState;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$e.container, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles$i.container, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       ProgressBar,
       {
@@ -19058,6 +18905,159 @@ function AddCard() {
       }
     )
   ] });
+}
+const container$1 = "_container_pgg4m_1";
+const description = "_description_pgg4m_8";
+const details = "_details_pgg4m_15";
+const detailsSpan = "_detailsSpan_pgg4m_25";
+const styles$2 = {
+  container: container$1,
+  description,
+  details,
+  detailsSpan
+};
+const roundCheckIcon = "_roundCheckIcon_16zuh_1";
+const checkMark = "_checkMark_16zuh_10";
+const small = "_small_16zuh_15";
+const medium = "_medium_16zuh_20";
+const large = "_large_16zuh_25";
+const styles$1 = {
+  roundCheckIcon,
+  checkMark,
+  small,
+  medium,
+  large
+};
+const RoundCheckIcon = ({ size = "medium" }) => {
+  const containerClassName = clsx(styles$1.roundCheckIcon, styles$1[size]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "div",
+    {
+      className: containerClassName,
+      role: "img",
+      "aria-label": "Success check mark",
+      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "svg",
+        {
+          viewBox: "0 0 24 24",
+          fill: "none",
+          stroke: "currentColor",
+          strokeWidth: "4",
+          strokeLinecap: "round",
+          strokeLinejoin: "round",
+          className: styles$1.checkMark,
+          "aria-hidden": "true",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("title", { children: "Check mark" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("polyline", { points: "20 6 9 17 4 12" })
+          ]
+        }
+      )
+    }
+  );
+};
+const container = "_container_1mirm_1";
+const icon = "_icon_1mirm_12";
+const message = "_message_1mirm_16";
+const styles = {
+  container,
+  icon,
+  message
+};
+function Fallback({
+  message: message2,
+  buttonText = "홈으로 이동",
+  onButtonClick
+}) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    if (onButtonClick) return onButtonClick();
+    navigate("/");
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: styles.container, role: "alert", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: styles.icon, children: "⚠️" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: styles.message, children: message2 }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Button,
+      {
+        size: "large",
+        variant: "rounded",
+        onClick: handleClick,
+        "aria-label": buttonText,
+        children: buttonText
+      }
+    )
+  ] });
+}
+function AddCardCompleteModal() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const handleAddCardConfirmButton = () => {
+    navigate(locations.ADD_CARD);
+  };
+  if (!location.state) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Fallback,
+      {
+        message: "비정상적 접근입니다.",
+        buttonText: "홈으로 돌아가기",
+        onButtonClick: handleAddCardConfirmButton
+      }
+    );
+  }
+  const { firstCardNumber, selectedBrand } = location.state;
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "div",
+    {
+      className: styles$2.container,
+      role: "dialog",
+      "aria-labelledby": "card-complete-title",
+      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: styles$2.description,
+          "aria-describedby": "card-complete-description",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(RoundCheckIcon, { size: "large" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { id: "card-complete-title", className: styles$2.details, children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "span",
+                {
+                  id: "card-complete-number-description",
+                  className: styles$2.detailsSpan,
+                  children: [
+                    firstCardNumber,
+                    "로 시작하는"
+                  ]
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "span",
+                {
+                  id: "card-complete-brand-description",
+                  className: styles$2.detailsSpan,
+                  children: [
+                    selectedBrand === "카카오뱅크" ? "카카오뱅크 카드" : selectedBrand,
+                    "가 등록되었어요!"
+                  ]
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Button,
+              {
+                size: "large",
+                variant: "rounded",
+                onClick: handleAddCardConfirmButton,
+                "aria-label": "확인 및 홈으로 이동",
+                children: "확인"
+              }
+            )
+          ]
+        }
+      )
+    }
+  );
 }
 function FourOFourFallback() {
   const navigate = useNavigate();
