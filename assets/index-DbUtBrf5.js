@@ -13319,38 +13319,6 @@ function DataRoutes({
 }) {
   return useRoutesImpl(routes, void 0, state, future);
 }
-function Navigate({
-  to,
-  replace: replace2,
-  state,
-  relative
-}) {
-  invariant(
-    useInRouterContext(),
-    // TODO: This error is probably because they somehow have 2 versions of
-    // the router loaded. We can help them understand how to avoid that.
-    `<Navigate> may be used only in the context of a <Router> component.`
-  );
-  let { static: isStatic } = reactExports.useContext(NavigationContext);
-  warning(
-    !isStatic,
-    `<Navigate> must not be used on the initial render in a <StaticRouter>. This is a no-op, but you should modify your code so the <Navigate> is only ever rendered in response to some user interaction or state change.`
-  );
-  let { matches } = reactExports.useContext(RouteContext);
-  let { pathname: locationPathname } = useLocation();
-  let navigate = useNavigate();
-  let path = resolveTo(
-    to,
-    getResolveToMatches(matches),
-    locationPathname,
-    relative === "path"
-  );
-  let jsonPath = JSON.stringify(path);
-  reactExports.useEffect(() => {
-    navigate(JSON.parse(jsonPath), { replace: replace2, state, relative });
-  }, [navigate, jsonPath, relative, replace2, state]);
-  return null;
-}
 function Route(_props) {
   invariant(
     false,
@@ -14780,9 +14748,7 @@ function useFocusControl(currentStep, allValid) {
 }
 const locations = {
   BASE_URL: "/react-payments",
-  ADD_CARD_COMPLETE: {
-    pathname: "complete"
-  }
+  ADD_CARD_COMPLETE: "complete"
 };
 const fullWidthFixedWrapper = "_fullWidthFixedWrapper_1s5o1_1";
 const styles$6 = {
@@ -15473,12 +15439,8 @@ function AddCardCompleteModal() {
     );
   }
   const { firstCardNumber, selectedBrand } = location.state;
-  let displayBrand = selectedBrand;
-  if (selectedBrand === "카카오뱅크") {
-    displayBrand += " 카드";
-  }
   const handleAddCardConfirmButton = () => {
-    navigate("/");
+    navigate(locations.ADD_CARD_COMPLETE);
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "div",
@@ -15511,7 +15473,7 @@ function AddCardCompleteModal() {
                   id: "card-complete-brand-description",
                   className: styles$2.detailsSpan,
                   children: [
-                    displayBrand,
+                    selectedBrand === "카카오뱅크" ? "카카오뱅크 카드" : selectedBrand,
                     "가 등록되었어요!"
                   ]
                 }
@@ -15534,12 +15496,16 @@ function AddCardCompleteModal() {
   );
 }
 function App() {
+  const navigate = useNavigate();
+  const handleFallbackButtonClick = () => {
+    navigate("/");
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { basename: locations.BASE_URL, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { index: true, element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCard, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Route,
       {
-        path: locations.ADD_CARD_COMPLETE.pathname,
+        path: locations.ADD_CARD_COMPLETE,
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(AddCardCompleteModal, {})
       }
     ),
@@ -15552,7 +15518,7 @@ function App() {
           {
             message: "잘못된 접근입니다.",
             buttonText: "홈으로 돌아가기",
-            onButtonClick: () => /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/" })
+            onButtonClick: handleFallbackButtonClick
           }
         )
       }
